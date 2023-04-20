@@ -68,3 +68,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## How to use docker compose environment for local development
+
+- Add a host entry for the keycloak container
+
+```bash
+$ cat /etc/hosts
+127.0.0.1	localhost keycloak
+```
+
+- Run the following command to start all containers
+
+```bash
+$ docker compose up --build --pull=always
+```
