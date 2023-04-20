@@ -1,8 +1,8 @@
 {
-  "realm": "bookshop",
-  "auth-server-url": "http://localhost:8080/",
+  "realm": "pac",
+  "auth-server-url": "http://localhost:4080/",
   "ssl-required": "none",
-  "resource": "bookBox",
+  "resource": "pac-ui",
   "public-client": true,
   "confidential-port": 0
 }

@@ -19,6 +19,7 @@ const RequestList = () => {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Group ID</th>
               <th>Group</th>
               <th>Requester</th>
               <th>Created At</th>
@@ -29,6 +30,7 @@ const RequestList = () => {
               return (
                 <tr key={request.id}>
                   <td>{request.id}</td>
+                  <td>{request.group_id}</td>
                   <td>{request.group}</td>
                   <td>{request.requester}</td>
                   <td>{request.created_at}</td>

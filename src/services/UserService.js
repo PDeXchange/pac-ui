@@ -1,6 +1,13 @@
 import Keycloak from "keycloak-js";
 
-const _kc = new Keycloak('/keycloak.json');
+// Keycloak configuration
+let keycloakConfig = {
+  url: process.env.REACT_APP_KEYCLOAK_URL,
+  realm: process.env.REACT_APP_KEYCLOAK_REALM,
+  clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID,
+};
+
+const _kc = new Keycloak(keycloakConfig);
 
 /**
  * Initializes Keycloak instance and calls the provided callback function if successfully authenticated.
@@ -8,11 +15,13 @@ const _kc = new Keycloak('/keycloak.json');
  * @param onAuthenticatedCallback
  */
 const initKeycloak = (onAuthenticatedCallback) => {
-  _kc.init({
-    onLoad: 'check-sso',
-    silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
-    pkceMethod: 'S256',
-  })
+  _kc
+    .init({
+      onLoad: "check-sso",
+      silentCheckSsoRedirectUri:
+        window.location.origin + "/silent-check-sso.html",
+      pkceMethod: "S256",
+    })
     .then((authenticated) => {
       if (!authenticated) {
         console.log("user is not authenticated..!");
@@ -31,14 +40,12 @@ const getParsedToken = () => _kc.tokenParsed;
 
 const getName = () => {
   return _kc.tokenParsed?.name;
-}
+};
 
 const isLoggedIn = () => !!_kc.token;
 
 const updateToken = (successCallback) =>
-  _kc.updateToken(5)
-    .then(successCallback)
-    .catch(doLogin);
+  _kc.updateToken(5).then(successCallback).catch(doLogin);
 
 const getUsername = () => _kc.tokenParsed?.preferred_username;
 

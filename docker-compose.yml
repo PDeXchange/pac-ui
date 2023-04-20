@@ -1,0 +1,82 @@
+version: "3.4"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.0.2
+    command: start-dev
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KC_DB: postgres
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_DB_URL: jdbc:postgresql://postgres/postgres
+      # DB_VENDOR: ${DB_VENDOR:-postgres}
+      # DB_ADDR: postgres
+      # DB_DATABASE: ${POSTGRES_DB:-postgres}
+      # DB_USER: ${POSTGRES_USER:-postgres}
+      # DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+  react-app:
+    image: myapp/react-app
+    ports:
+      - "3000:3000"
+    environment:
+      # REACT_APP_PAC_GO_SERVER_TARGET: "http://backend:8000"
+      REACT_APP_PAC_GO_SERVER_TARGET: "http://192.168.0.108:8000"
+      REACT_APP_KEYCLOAK_CLIENT_ID: "pac-ui"
+      REACT_APP_KEYCLOAK_REALM: "pac"
+      # REACT_APP_KEYCLOAK_URL: "https://keycloak.developonpower.com"
+      REACT_APP_KEYCLOAK_URL: "http://keycloak:8080"
+    depends_on:
+      # - backend
+      - keycloak
+    volumes:
+      - .:/app
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.dev
+  backend:
+    image: myapp/backend
+    build:
+      context: /Users/manjunath/pac_ws/pac-go-server
+      dockerfile: /Users/manjunath/pac_ws/pac-go-server/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+      KEYCLOAK_CLIENT_ID: "golang-program"
+      KEYCLOAK_CLIENT_SECRET: "Yy9Jx6NJwvyEYP2CG4sTjF4bmNtH5GkN"
+      KEYCLOAK_REALM: "pac"
+      KEYCLOAK_HOSTNAME: "http://keycloak:8080"
+      # KEYCLOAK_CLIENT_ID: "pac-go-server"
+      # KEYCLOAK_CLIENT_SECRET: "IOQPGIcY7v67tgWtUkPDDAeQz3T4bDxU"
+      # KEYCLOAK_REALM: "pac"
+      # KEYCLOAK_HOSTNAME: "https://keycloak.developonpower.com"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+volumes:
+  postgres-data:
