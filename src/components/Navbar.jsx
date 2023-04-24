@@ -29,7 +29,7 @@ export default class NavbarComp extends Component {
             <Navbar.Text className="mr-2">
               Signed in as: {UserService.getName()}({UserService.getUsername()})
             </Navbar.Text>
-            <Button variant="danger" style={{ marginLeft: "10px" }}>Logout</Button>
+            <Button variant="danger" style={{ marginLeft: "10px" }} onClick={() => UserService.doLogout()}>Logout</Button>
           </Navbar.Collapse>
           <Nav.Link href="/about" className="text-info" style={{ marginLeft: "10px" }} >About</Nav.Link>
        </Container>
