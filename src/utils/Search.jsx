@@ -1,4 +1,3 @@
-
 const clientSearchFilter = (searchText, data) => {
     if (!searchText) return data;
     let cleanedSearchText = searchText;
@@ -46,4 +45,3 @@ const clientSearchFilter = (searchText, data) => {
   };
   
 export { clientSearchFilter };
-  
