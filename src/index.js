@@ -5,7 +5,7 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import UserService from "./services/UserService";
 import { Provider } from 'react-redux';
-import { store, persistor } from './store/store';
+import { store } from './store/store';
 
 const renderApp = () => {
   const root = ReactDOM.createRoot(document.getElementById('root'));

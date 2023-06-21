@@ -1,8 +1,5 @@
 import React , { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteGroup } from "../store/request";
 import { allGroups } from "../services/request";
-// import { addRequest } from "../modules/requests";
 
 import {
   DataTable,
@@ -97,7 +94,7 @@ const GroupList = () => {
     return (
       <React.Fragment>
         {actionProps?.key === BUTTON_REQUEST && (
-          <NewRequest 
+          <NewRequest
             selectRows={selectRows}
             setActionProps={setActionProps}
           />

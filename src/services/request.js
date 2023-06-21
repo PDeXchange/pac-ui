@@ -14,10 +14,8 @@ _axios.interceptors.request.use((config) => {
 
 export const allGroups = () => {
   const url = "/pac-go-server/groups";
-  const token = UserService.getToken();
-  const headers = { Authorization: `Bearer ${token}` };
 
-  return axios.get(url, { headers })
+  return _axios.get(url)
     .then(response => ({
       type: "LIST_GROUPS",
       payload: response.data
@@ -30,10 +28,8 @@ export const allGroups = () => {
 
 export const getGroup = (id)=>{
   const url = `/pac-go-server/group/${id}`;
-  const token = UserService.getToken();
-  const headers = { Authorization: `Bearer ${token}` };
 
-  return axios.get(url, { headers })
+  return _axios.get(url)
   .then(response => ({
     type: "LIST_GROUP",
     payload: response.data
@@ -46,15 +42,12 @@ export const getGroup = (id)=>{
 
 export const newRequest = (group) => {
   const url = `/pac-go-server/group/${group.id}/request`;
-  const token = UserService.getToken();
-  const headers = { Authorization: `Bearer ${token}` };
 
   const requestData = {
     justification: group.justification,
   };
 
-  return axios
-    .post(url, requestData, { headers })
+  return _axios.post(url, requestData)
     .then((response) => ({
       type: "LIST_GROUP",
       payload: response.data,
@@ -67,11 +60,8 @@ export const newRequest = (group) => {
 
 export const deleteGroup = (group) => {
   const url = `/pac-go-server/groups/${group.id}`;
-  const token = UserService.getToken();
-  const headers = { Authorization: `Bearer ${token}` };
 
-  return axios
-    .post(url, group, { headers })
+  return _axios.post(url, group)
     .then((response) => ({
       type: "DELETE_GROUP",
       payload: response.data,
@@ -84,10 +74,8 @@ export const deleteGroup = (group) => {
 
 export const allRequests = () => {
   const url = "/pac-go-server/requests";
-  const token = UserService.getToken();
-  const headers = { Authorization: `Bearer ${token}` };
 
-  return axios.get(url, { headers })
+  return _axios.get(url)
     .then(response => ({
       type: "LIST_REQUESTS",
       payload: response.data
@@ -100,10 +88,8 @@ export const allRequests = () => {
 
 export const approveRequest = (id) => {
   const url = `/pac-go-server/request/${id}/approve`;
-  const token = UserService.getToken();
-  const headers = { Authorization: `Bearer ${token}` };
 
-  return axios.post(url,null, { headers })
+  return _axios.post(url,null)
     .then(response => ({
       type: "APPROVE_REQUEST",
       payload: response.data

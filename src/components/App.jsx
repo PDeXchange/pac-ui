@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import '../App.css';
 import React from 'react';
 import Login from "./Login";
@@ -12,7 +11,6 @@ import AuthRoute from './PrivateRoute/AuthRoute';
 import {
   createBrowserRouter,
   RouterProvider,
-  useNavigate,
 } from "react-router-dom";
 import UserService from '../services/UserService';
 

@@ -1,10 +1,9 @@
 import React, { useEffect,useState } from "react";
-import { allRequests, approveRequest } from "../services/request";
+import { allRequests } from "../services/request";
 import { APPROVE_REQUEST } from '../store/actionConstants';
 import { MobileAdd } from "@carbon/icons-react";
 import FooterPagination from "../utils/Pagination";
 import { clientSearchFilter } from "../utils/Search";
-import NewRequest from "./PopUp/NewRequest";
 import {
   DataTable,
   Table,
@@ -19,7 +18,6 @@ import {
   TableSelectRow,
   TableToolbarSearch,
   TableSelectAll,
-  DataTableSkeleton
 } from '@carbon/react';
 import ApproveRequest from "./PopUp/ApproveRequest";
 const headers = [

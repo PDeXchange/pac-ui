@@ -1,8 +1,6 @@
 import UserService from "../services/UserService";
 import "../styles/welcome.scss";
 import { ReactComponent as WelcomeImage } from '../assets/images/welcome.svg';
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Welcome = () => {
   const handleLogin = async ()=>{
