@@ -45,5 +45,5 @@ const clientSearchFilter = (searchText, data) => {
     return filteredRows;
   };
   
-  export { clientSearchFilter };
+export { clientSearchFilter };
   

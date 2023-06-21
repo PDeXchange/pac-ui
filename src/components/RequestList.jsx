@@ -165,7 +165,3 @@ const RequestList = () => {
 };
 
 export default RequestList;
-
-
-
-// handleApprove(request.id)
