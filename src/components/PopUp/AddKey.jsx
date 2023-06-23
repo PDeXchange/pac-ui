@@ -1,10 +1,10 @@
 // import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createKeys , getGroup } from "../../services/request";
+import { createKeys  } from "../../services/request";
 import { Modal } from "@carbon/react";
 
-const AddKey = ({selectRows,setActionProps})=> {
+const AddKey = ({ setActionProps})=> {
   let navigate = useNavigate();
 
   const [g, setGroup] = useState({

@@ -2,7 +2,6 @@ import '../App.css';
 import React from 'react';
 import Login from "./Login";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavbarComp from "./Navbar";
 import GroupList from "./GroupList";
 import RequestList from "./RequestList";
 import NewRequest from "./PopUp/NewRequest";
@@ -65,4 +64,3 @@ const App = () => {
 };
 
 export default App;
-{/* <HeaderNav /> */}

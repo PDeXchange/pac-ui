@@ -1,20 +1,13 @@
 import React, {useState} from "react";
-import { render } from "react-dom";
-import { Switcher, UserAvatar } from "@carbon/icons-react";
+import { UserAvatar } from "@carbon/icons-react";
 import {
   Header,
   HeaderName,
   HeaderGlobalAction,
   HeaderGlobalBar,
-  HeaderNavigation,
-  HeaderMenu,
-  HeaderMenuItem,
   Theme,
   SideNav,
   SideNavItems,
-  SideNavMenu,
-  SideNavMenuItem,
-//   StoryContent,
   SideNavLink
 } from "@carbon/react";
 import ProfileSection from "./Navbar";

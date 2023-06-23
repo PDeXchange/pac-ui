@@ -3,7 +3,6 @@ import { allKeys } from "../services/request";
 import { MobileAdd, TrashCan } from "@carbon/icons-react";
 import { clientSearchFilter } from "../utils/Search";
 import FooterPagination from "../utils/Pagination";
-import ExitGroup from "./PopUp/ExitGroup";
 import UserService from "../services/UserService";
 import AddKey from "./PopUp/AddKey";
 import {
