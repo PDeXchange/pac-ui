@@ -49,7 +49,7 @@ const DeployCatalog = ({selectRows,setActionProps})=> {
             <input
               type={"text"}
               className="form-control"
-              placeholder="Enter your name"
+              placeholder="Enter the display name for the service"
               name="name"
               value={catalogName}
               onChange={(e)=>setCatalogName(e.target.value)}
@@ -57,7 +57,7 @@ const DeployCatalog = ({selectRows,setActionProps})=> {
           </div>
           <div className="mb-3">
             <label htmlFor="Name" className="form-label">
-              Name
+              Catalog
             </label>
             <input
               type={"text"}

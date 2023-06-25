@@ -36,12 +36,20 @@ const headers = [
   },
   {
     key: "catalog_name",
-    header: "Catalog Name"
+    header: "Catalog"
   },
   {
     key: "expiry",
     header: "Expiry"
-  }
+  },
+  {
+    key: "status.state",
+    header: "State"
+  },
+  {
+    key: "status.access_info",
+    header: "Access Information"
+  },
 ];
 
 const TABLE_BUTTONS = [

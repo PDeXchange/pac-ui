@@ -52,7 +52,7 @@ const AddKey = ({ setActionProps})=> {
             <input
               type={"text"}
               className="form-control"
-              placeholder="Enter your name"
+              placeholder="Enter the ssh key name..."
               name="name"
               value={g?.name}
               onChange={(e) => onInputChange(e)}
@@ -66,7 +66,7 @@ const AddKey = ({ setActionProps})=> {
             <textarea
               type={"text"}
               className="form-control"
-              placeholder="Enter your Justifcation for joining the group"
+              placeholder="Enter the public key..."
               name="content"
               value={g?.justification}
               onChange={(e) => onInputChange(e)}
