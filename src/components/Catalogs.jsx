@@ -41,6 +41,10 @@ const headers = [
     header: "Status"
   },
   {
+    key: "retired",
+    header: "Retired"
+  },
+  {
     key:"status.message",
     header: "Message"
   }

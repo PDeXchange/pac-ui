@@ -10,6 +10,10 @@ export const flattenObject = (obj)=> {
         } else {
             if (key === "ready")
                 result[key] = ((obj[key] === true) ? "Ready" : "Not Ready");
+            else if (key === "retired")
+                result[key] = ((obj[key] === true) ? "True" : "False");
+            else if (key === "membership")
+                result[key] = ((obj[key] === true) ? "True" : "False");
             else
             result[key] = obj[key];
         }
