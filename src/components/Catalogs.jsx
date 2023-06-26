@@ -25,16 +25,16 @@ const BUTTON_REQUEST = "BUTTON_REQUEST";
 
 const headers = [
   {
-    key: 'id',
-    header: 'ID',
-  },
-  {
     key: 'name',
     header: 'Name',
   },
   {
     key: "type",
     header: "Type"
+  },
+  {
+    key: "description",
+    header: "Description"
   },
   {
     key: "status.ready",
@@ -49,7 +49,7 @@ const headers = [
 const TABLE_BUTTONS = [
   {
     key: BUTTON_REQUEST,
-    label: ('Deploy Catalog'),
+    label: ('Deploy'),
     kind: 'ghost',
     icon: MobileAdd,
     standalone: true,
@@ -125,7 +125,7 @@ const Catalogs = () => {
             const batchActionProps = getBatchActionProps({ batchActions: TABLE_BUTTONS });
             return (
               <TableContainer
-                title={"Groups Detail"}
+                title={"Catalog Detail"}
                 {...getTableContainerProps()}>
                   {selectionHandler &&
                 selectionHandler(selectedRows)}
