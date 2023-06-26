@@ -50,12 +50,12 @@ const ServiceExtend = ({selectRows,setActionProps})=> {
       <div>
             <div className="mb-3">
                 <label htmlFor="Name" className="form-label">
-                    Comment
+                    Justification<span className="text-danger">*</span>
                 </label>
                 <input
                 type={"text"}
                 className="form-control"
-                placeholder="Comment for extend"
+                placeholder="Justification to extend the expiry for the sevice"
                 name="justification"
                 value={justification}
                 onChange={(e)=> setJustification(e.target.value)}

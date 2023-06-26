@@ -20,6 +20,7 @@ import {
 import { MobileAdd, TrashCan } from "@carbon/icons-react";
 import { clientSearchFilter } from "../utils/Search";
 import FooterPagination from "../utils/Pagination";
+import { flattenArrayOfObject } from './commonUtils';
 import NewRequest from "./PopUp/NewRequest";
 import ExitGroup from "./PopUp/ExitGroup";
 const BUTTON_REQUEST = "BUTTON_REQUEST";
@@ -34,12 +35,16 @@ const headers = [
     key: 'name',
     header: 'Groups',
   },
+  {
+    key: 'membership',
+    header: 'Membership',
+  },
 ];
 
 const TABLE_BUTTONS = [
   {
     key: BUTTON_REQUEST,
-    label: ('Request group'),
+    label: ('Request'),
     kind: 'ghost',
     icon: MobileAdd,
     standalone: true,
@@ -47,7 +52,7 @@ const TABLE_BUTTONS = [
   },
   {
     key: BUTTON_DELETE,
-    label: ('Exit group'),
+    label: ('Exit'),
     kind: 'ghost',
     icon: TrashCan,
     standalone: true,
@@ -75,7 +80,7 @@ const GroupList = () => {
     fetchData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const displayData = clientSearchFilter(searchText, rows);
+  const displayData = flattenArrayOfObject(clientSearchFilter(searchText, rows));
 
   const renderSkeleton = () => {
     const headerLabels = headers?.map((x) => x?.header);

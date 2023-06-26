@@ -45,6 +45,7 @@ export const newRequest = (group) => {
 
   const requestData = {
     justification: group.justification,
+    type: 'GROUP',
   };
   return _axios.post(url, requestData)
     .then((response) => ({
@@ -164,7 +165,7 @@ export const deployCatalog = (payload)=>{
 }
 
 export const getServices = ()=>{
-  const url = `/pac-go-server/services`;
+  const url = `/pac-go-server/services?all=true`;
   return _axios.get(url)
   .then(response => ({
     type: "LIST_REQUESTS",
