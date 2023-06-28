@@ -224,6 +224,20 @@ export const deleteCatalog = (name) => {
     }));
 };
 
+export const retireCatalog = (name) => {
+  const url = `/pac-go-server/catalogs/${name}/retire`;
+  return _axios
+    .put(url)
+    .then((response) => ({
+      type: "RETIRE_CATALOG",
+      payload: response.data,
+    }))
+    .catch((error) => ({
+      type: "API_ERROR",
+      payload: error,
+    }));
+};
+
 export const deployCatalog = (payload) => {
   const url = `/pac-go-server/services`;
   return _axios

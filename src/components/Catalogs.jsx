@@ -15,17 +15,19 @@ import {
   TableSelectAll,
   DataTableSkeleton,
 } from "@carbon/react";
-import { MobileAdd, TrashCan } from "@carbon/icons-react";
+import { MobileAdd, TrashCan, AlarmSubtract } from "@carbon/icons-react";
 import { clientSearchFilter } from "../utils/Search";
 import FooterPagination from "../utils/Pagination";
 import { flattenArrayOfObject } from "./commonUtils";
 import { getAllCatalogs } from "../services/request";
 import DeployCatalog from "./PopUp/DeployCatalog";
 import DeleteCatalog from "./PopUp/DeleteCatalog";
+import RetireCatalog from "./PopUp/RetireCatalog";
 import UserService from "../services/UserService";
 
 const BUTTON_REQUEST = "BUTTON_REQUEST";
 const BUTTON_DELETE = "BUTTON_DELETE";
+const BUTTON_RETIRE = "BUTTON_RETIRE";
 
 const headers = [
   {
@@ -55,6 +57,15 @@ const headers = [
 ];
 
 const TABLE_BUTTONS = [
+  {
+    key: BUTTON_RETIRE,
+    label: "Retire",
+    kind: "ghost",
+    icon: AlarmSubtract,
+    standalone: true,
+    hasIconOnly: true,
+    adminOnly: true,
+  },
   {
     key: BUTTON_DELETE,
     label: "Delete",
@@ -119,6 +130,12 @@ const Catalogs = () => {
   const renderActionModals = () => {
     return (
       <React.Fragment>
+        {actionProps?.key === BUTTON_RETIRE && (
+          <RetireCatalog
+            selectRows={selectRows}
+            setActionProps={setActionProps}
+          />
+        )}
         {actionProps?.key === BUTTON_DELETE && (
           <DeleteCatalog
             selectRows={selectRows}
