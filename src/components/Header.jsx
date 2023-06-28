@@ -33,7 +33,7 @@ const HeaderNav = () => {
                     setShowProfile(!showProfile);
                   }}
                 >
-                  <UserAvatar size="small" />
+                  <UserAvatar size="32" tabIndex="0" />
                 </HeaderGlobalAction>
               </HeaderGlobalBar>
             </Header>
