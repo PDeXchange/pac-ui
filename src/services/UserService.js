@@ -7,7 +7,6 @@ let keycloakConfig = {
   clientId: window._env_.REACT_APP_KEYCLOAK_CLIENT_ID,
 };
 
-
 const _kc = new Keycloak(keycloakConfig);
 
 /**
@@ -16,7 +15,7 @@ const _kc = new Keycloak(keycloakConfig);
  * @param onAuthenticatedCallback
  */
 
-const initKeycloak = (onAuthenticatedCallback) => {
+const initKeycloak = (onAuthenticatedCallback, errorCallback) => {
   _kc
     .init({
       onLoad: "check-sso",
@@ -30,7 +29,10 @@ const initKeycloak = (onAuthenticatedCallback) => {
       }
       onAuthenticatedCallback();
     })
-    .catch(console.error);
+    .catch((error) => {
+      console.error("Error initializing Keycloak:", error);
+      errorCallback(error);
+    });
 };
 
 const doLogin = _kc.login;
@@ -52,7 +54,7 @@ const updateToken = (successCallback) =>
 const getUsername = () => _kc.tokenParsed?.preferred_username;
 
 const hasRole = (roles) => roles.some((role) => _kc.hasRealmRole(role));
-const isAdminUser = ()=> hasRole(["manager"]);
+const isAdminUser = () => hasRole(["manager"]);
 
 const UserService = {
   initKeycloak,
@@ -65,7 +67,7 @@ const UserService = {
   hasRole,
   getParsedToken,
   getName,
-  isAdminUser
+  isAdminUser,
 };
 
 export default UserService;

@@ -29,7 +29,7 @@ const Welcome = () => {
           <p>
             Please read and agree to the{" "}
             <a
-              href="http://www.example.com"
+              href="https://github.com/PDeXchange/pac-support/wiki/Terms-and-Conditions-of-Power-Access-Cloud-(PAC)-Usage"
               target="_blank"
               rel="noopener noreferrer"
             >
