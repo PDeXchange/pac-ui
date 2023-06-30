@@ -8,11 +8,7 @@ const QuotaWarning = () => {
   const [quotaMessage, setQuotaMessage] = useState("");
   const [primaryButtonText, setPrimaryButtonText] = useState("");
   const [nagivateTo, setNagivateTo] = useState("");
-  const [passiveModal, setPassiveModal] = useState(false);
   let navigate = useNavigate();
-  const onSubmit = async () => {
-    navigate("/groups");
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +45,6 @@ const QuotaWarning = () => {
   return (
     <Modal
       size="sm"
-      passiveModal={passiveModal}
       onRequestClose={onCancel}
       onRequestSubmit={() => {
         navigate(nagivateTo);
