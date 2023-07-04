@@ -40,6 +40,14 @@ const headers = [
     header: "Groups",
   },
   {
+    key: "quota.cpu",
+    header: "Quota CPU",
+  },
+  {
+    key: "quota.memory",
+    header: "Quota Memory(GB)",
+  },
+  {
     key: "membership",
     header: "Membership",
   },
