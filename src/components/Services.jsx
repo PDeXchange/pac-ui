@@ -100,7 +100,8 @@ const Services = () => {
 
   const fetchData = async () => {
     let data = await getServices();
-    setRows(data?.payload);
+    // override the id field to be the name of the service to make it easier for the actions like expiry or delete
+    setRows(data?.payload.map((row) => ({ ...row, id: row.name })));
     setLoading(false);
   };
 

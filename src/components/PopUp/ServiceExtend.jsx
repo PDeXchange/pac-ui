@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { Modal, DatePicker, DatePickerInput } from "@carbon/react";
 
 const ServiceExtend = ({ selectRows, setActionProps, onError }) => {
+  const name = selectRows[0]?.id;
   const [justification, setJustification] = useState("");
-  let name = "";
   let expiry = "";
   selectRows[0].cells.forEach((item) => {
-    if (item.id.split(":")[1] === "name") {
-      name = item?.value;
-    } else if (item.id.split(":")[1] === "expiry") {
+    if (item.id.split(":")[1] === "expiry") {
       expiry = new Date(item?.value);
     }
   });
@@ -23,15 +21,15 @@ const ServiceExtend = ({ selectRows, setActionProps, onError }) => {
     const changedDate = new Date(date);
     const isoString = changedDate.toISOString();
     try {
-      const {type, payload} = await extendServices(name, {
+      const { type, payload } = await extendServices(name, {
         justification,
         type: "SERVICE_EXPIRY",
         service: {
           expiry: isoString,
         },
       }); // wait for the dispatch to complete
-      if (type==="API_ERROR"){
-        const errorTitle = "Service extension failed"
+      if (type === "API_ERROR") {
+        const errorTitle = "Service extension failed";
         const errorMsg = payload.response.data.error;
         onError(errorTitle, errorMsg);
       }
