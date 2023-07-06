@@ -68,20 +68,6 @@ const NewRequest = ({ selectRows, setActionProps, onError }) => {
       {!loading && (
         <div>
           <div className="mb-3">
-            <label htmlFor="ID" className="form-label">
-              ID
-            </label>
-            <input
-              type={"text"}
-              className="form-control"
-              placeholder="Enter your name"
-              name="id"
-              value={g?.id}
-              // onChange={(e) => onInputChange(e)}
-              disabled
-            />
-          </div>
-          <div className="mb-3">
             <label htmlFor="Name" className="form-label">
               Name
             </label>
