@@ -40,6 +40,7 @@ const headers = [
   {
     key: "id",
     header: "ID",
+    adminOnly: true,
   },
   {
     key: "type",
@@ -55,12 +56,16 @@ const headers = [
     header: "Created",
   },
   {
+    key: "justification",
+    header: "Justification",
+  },
+  {
     key: "state",
     header: "State",
   },
   {
     key: "comment",
-    header: "Comment",
+    header: "Admin comments",
   },
 ];
 
