@@ -30,7 +30,7 @@ const HeaderNav = () => {
               isActive={isSideNavExpanded}
               aria-expanded={isSideNavExpanded}
             />
-            <HeaderName href="#" prefix="Power">
+            <HeaderName href="/" prefix="Power">
               Access Cloud
             </HeaderName>
             <HeaderGlobalBar>
@@ -56,13 +56,13 @@ const HeaderNav = () => {
               }}
             >
               <SideNavItems>
+                <SideNavLink href="/">Home</SideNavLink>
                 <SideNavLink href="/groups">Groups</SideNavLink>
                 <SideNavLink href="/requests">Request</SideNavLink>
                 <SideNavLink href="/keys">Keys</SideNavLink>
                 <SideNavLink href="/catalogs">Catalogs</SideNavLink>
                 <SideNavLink href="/services">Services</SideNavLink>
                 {isAdmin && <SideNavLink href="/users">Users</SideNavLink>}
-                <SideNavLink href="/">About</SideNavLink>
               </SideNavItems>
             </SideNav>
           </Header>
