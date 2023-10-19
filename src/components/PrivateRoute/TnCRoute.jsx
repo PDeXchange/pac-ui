@@ -1,44 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../services/UserService";
-import axios from "axios";
+import { tncStatus } from "../../services/request";
 
 const TnCRoute = ({ Component }) => {
   const navigate = useNavigate();
   const auth = UserService.isLoggedIn();
   const [isLoading, setIsLoading] = useState(true);
-  const _axios = axios.create();
-  _axios.interceptors.request.use((config) => {
-    if (auth) {
-      const cb = () => {
-        config.headers.Authorization = `Bearer ${UserService.getToken()}`;
-        return Promise.resolve(config);
-      };
-      return UserService.updateToken(cb);
-    }
-  });
-  const url1 = "/pac-go-server/tnc";
-   
-   useEffect(()=>{
+    useEffect(()=>{
+    const fetchStatus = async () => {
+      let TnCdata = await tncStatus();
+      
+      if (!TnCdata.acceptance) {   
+        navigate("/terms");
+      }
+      setIsLoading(false);
+    };
     if (auth=== false){
       setIsLoading(false);
       navigate("/login");
     }else{
-
-       _axios.get(url1)
-        .then((response) => {
-          if (!response.data.accepted) {
-            
-            navigate("/terms");
-          }
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-        
+      fetchStatus();       
     }
-  },[auth, _axios, navigate])
+  },[auth, navigate])
 
 
   if (isLoading) {

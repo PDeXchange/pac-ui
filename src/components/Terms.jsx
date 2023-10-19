@@ -1,8 +1,7 @@
 import React from "react";
-import UserService from "../services/UserService";
+import { getTnCText, acceptTnC } from "../services/request";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { marked } from "marked";
 
 import {
@@ -14,27 +13,16 @@ import {
 
 const Terms = () => {
     const navigate = useNavigate();
-  const url =
-    "https://raw.githubusercontent.com/PDeXchange/pac-support/main/Terms%20and%20Conditions.md";
-  const [read, setRead] = useState("");
+    const [read, setRead] = useState("");
 
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setRead(response.data);
-    });
-  }, []);
-
-  const _axios = axios.create();
-  _axios.interceptors.request.use((config) => {
-    if (UserService.isLoggedIn()) {
-      const cb = () => {
-        config.headers.Authorization = `Bearer ${UserService.getToken()}`;
-        return Promise.resolve(config);
-      };
-      return UserService.updateToken(cb);
+    const fetchText= async () => {
+      let TnCText = await getTnCText();
+ 
+      setRead(TnCText.text);
     }
-  });
-  const url1 = "/pac-go-server/tnc";
+    fetchText();
+  }, []);
 
   return (
 
@@ -46,13 +34,7 @@ const Terms = () => {
           />
 
           <Button onClick={async () => {
-           await _axios.post(url1)
-              .then((response) => {
-                console.log(response.data)
-              })
-              .catch((error) => {
-                console.log(error)
-              });
+           await acceptTnC();
            navigate(-2);
           }}>I agree</Button>
         </Column>
