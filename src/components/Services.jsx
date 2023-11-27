@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React,{useEffect,useState} from 'react';
+import { allGroups,getServices } from "../services/request";
 import {
   DataTable,
   Table,
@@ -8,122 +9,128 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableToolbar,
-  TableBatchAction,
-  TableSelectRow,
-  TableToolbarSearch,
-  TableSelectAll,
   DataTableSkeleton,
+  OverflowMenu,
+  OverflowMenuItem,
+  Button,
+  Grid,
+  Column
 } from "@carbon/react";
-import { CalendarAddAlt, TrashCan } from "@carbon/icons-react";
-import { clientSearchFilter } from "../utils/Search";
-import FooterPagination from "../utils/Pagination";
+import { useNavigate } from "react-router-dom";
 import { flattenArrayOfObject } from "./commonUtils";
-import { getServices } from "../services/request";
+import UserService from "../services/UserService";
+import { Add,CheckmarkFilled,Pending,InProgress } from "@carbon/icons-react";
 import DeleteService from "./PopUp/DeleteService";
 import ServiceExtend from "./PopUp/ServiceExtend";
-import UserService from "../services/UserService";
+import ServiceDetails from './PopUp/ServiceDetails';
 import Notify from "./utils/Notify";
 
 const BUTTON_REQUEST = "BUTTON_REQUEST";
 const BUTTON_EXTEND = "BUTTON_EXTEND";
+const BUTTON_DETAILS = "BUTTON_DETAILS";
+
+const extend_action={
+  key: BUTTON_EXTEND,
+  label: "Change Expiry",
+  kind: "ghost",
+  standalone: true,
+  hasIconOnly: true,
+}
+const delete_action={
+  key: BUTTON_REQUEST,
+  label: "Delete",
+  kind: "ghost",
+  standalone: true,
+  hasIconOnly: true,
+}
+
+const details_action={
+  key: BUTTON_DETAILS,
+  label: "Details",
+  kind: "ghost",
+  standalone: true,
+  hasIconOnly: true,
+}
 
 const headers = [
-  {
-    key: "user_id",
-    header: "User ID",
-    adminOnly: true,
-  },
-  {
-    key: "name",
-    header: "Name",
-    adminOnly: true,
-  },
+  
   {
     key: "display_name",
-    header: "Display name",
+    header: "Service name",
   },
   {
     key: "catalog_name",
-    header: "Catalog",
+    header: "Catalog item",
   },
   {
     key: "expiry",
-    header: "Expiry",
+    header: "Expiration date",
   },
   {
     key: "status.state",
-    header: "State",
+    header: "Status",
+  },
+  {
+    key: "status.access_info",
+    header: "Access Information",
   },
   {
     key: "status.message",
     header: "Message",
   },
   {
-    key: "status.access_info",
-    header: "Access Information",
-  },
+    key: "action",
+    header: "Action",
+  }
 ];
-
-const TABLE_BUTTONS = [
-  {
-    key: BUTTON_EXTEND,
-    label: "Change Expiry",
-    kind: "ghost",
-    icon: CalendarAddAlt,
-    standalone: true,
-    hasIconOnly: true,
-  },
-  {
-    key: BUTTON_REQUEST,
-    label: "Delete",
-    kind: "ghost",
-    icon: TrashCan,
-    standalone: true,
-    hasIconOnly: true,
-  },
-];
-
-let selectRows = [];
-const Services = () => {
-  const [rows, setRows] = useState([]);
-  const [searchText, setSearchText] = useState("");
+const Services=()=> {
+  let navigate = useNavigate();
+  const [groupdata, setGroupdata] = useState([]);
+  const [servicesrows, setServicesRows] = useState([]);
+  const isAdmin = UserService.isAdminUser();
+  const [loading, setLoading] = useState(true);
+  const [actionProps, setActionProps] = useState("");
   const [title, setTitle] = useState("");
   const [notifyKind, setNotifyKind] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [actionProps, setActionProps] = useState("");
-  const isAdmin = UserService.isAdminUser();
+
+  const [selectRow, setSelectRow] = useState([])
 
   const filteredHeaders = isAdmin
-    ? headers // Display all buttons for admin users
-    : headers.filter((header) => !header.adminOnly); // Filter out admin-only buttons for non-admin users
+  ? headers // Display all buttons for admin users
+  : headers.filter((header) => !header.adminOnly); // Filter out admin-only buttons for non-admin users
+
 
   const fetchData = async () => {
+    let data = [];
+    data = await allGroups();
+    const result=data.payload.filter((d)=>d.membership)
+    setGroupdata(result);
+    
+  };
+  const fetchServicesData = async () => {
     let data = await getServices();
-    // override the id field to be the name of the service to make it easier for the actions like expiry or delete
-    setRows(data?.payload.map((row) => ({ ...row, id: row.name })));
+    setServicesRows(data?.payload);
+    
+    // setServicesRows(data?.payload.map((row) => ({ ...row, id: row.name })));
+    
     setLoading(false);
   };
 
-  const selectionHandler = (rows = []) => {
-    selectRows = rows;
-  };
+  useEffect(()=>{
+    
+    fetchServicesData();
+  },[servicesrows])
 
-  useEffect(() => {
+  useEffect(()=>{
     fetchData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    
+  },[])
 
   const displayData = flattenArrayOfObject(
-    clientSearchFilter(searchText, rows)
+    servicesrows
   );
-
-  const handleResponse = (title, message, errored) => {
-    setTitle(title);
-    setMessage(message);
-    errored ? setNotifyKind("error") : setNotifyKind("success");
-  };
-
+  
   const renderSkeleton = () => {
     const headerLabels = filteredHeaders?.map((x) => x?.header);
     return (
@@ -131,24 +138,46 @@ const Services = () => {
         columnCount={headerLabels?.length}
         compact={false}
         headers={headerLabels}
-        rowCount={10}
+        rowCount={3}
         zebra={false}
       />
     );
   };
+  
+
+  const handleResponse = (title, message, errored) => {
+    setTitle(title);
+    setMessage(message);
+    errored ? setNotifyKind("error") : setNotifyKind("success");
+  };
+
+  const renderNoDataEmptyState=()=>{
+    return (<div>There are no services to display. After your group access is approved, you can add a service from the catalog.
+      </div>)
+  }
+
   const renderActionModals = () => {
     return (
       <React.Fragment>
+        {actionProps?.key === BUTTON_DETAILS && (
+          <ServiceDetails
+            pagename='/services'
+            selectRows={selectRow}
+            setActionProps={setActionProps}
+          />
+        )}
         {actionProps?.key === BUTTON_REQUEST && (
           <DeleteService
-            selectRows={selectRows}
+            pagename='/services'
+            selectRows={selectRow}
             setActionProps={setActionProps}
             response={handleResponse}
           />
         )}
         {actionProps?.key === BUTTON_EXTEND && (
           <ServiceExtend
-            selectRows={selectRows}
+            pagename='/services'
+            selectRows={selectRow}
             setActionProps={setActionProps}
             response={handleResponse}
           />
@@ -157,60 +186,64 @@ const Services = () => {
     );
   };
 
+
   return (
     <>
-      <Notify title={title} message={message} nkind={notifyKind} setTitle={setTitle} />
-      {loading ? (renderSkeleton()) : (
+    <Grid fullWidth>
+                <div className="page-banner">
+                      <h1 className="landing-page__sub_heading banner-header">
+                      Service details
+                      </h1>
+                      <p className="banner-text">Review your service details including status, expiration date, and access information. Request additional services from the catalog.</p>
+                  </div>
+                  </Grid>
+      <Notify
+        title={title}
+        message={message}
+        nkind={notifyKind}
+        setTitle={setTitle}
+      />
+      {loading ? (
+        renderSkeleton()
+      ) : (
         <>
           {renderActionModals()}
-          <DataTable rows={displayData} headers={filteredHeaders} isSortable>
+          <Grid fullWidth>
+          <Column lg={16} md={8} sm={4}>
+          <Button onClick={()=>navigate('/catalogs')} disabled={groupdata.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add}>
+                        Go to catalog
+                      </Button>
+          </Column>
+          <Column lg={16} md={8} sm={4}>
+          <DataTable
+            rows={displayData}
+            headers={filteredHeaders}
+            isSortable
+            radio
+          >
             {({
               rows,
               headers,
               getTableProps,
               getHeaderProps,
-              getRowProps,
-              getBatchActionProps,
-              getToolbarProps,
               getTableContainerProps,
-              getSelectionProps,
-              selectedRows,
+              
             }) => {
-              const batchActionProps = getBatchActionProps({
-                batchActions: TABLE_BUTTONS,
-              });
+              
               return (
+                
+                <>
+                 
+                <div>
+                  
                 <TableContainer
-                  title={"Service Details"}
+                  
                   {...getTableContainerProps()}
                 >
-                  {selectionHandler && selectionHandler(selectedRows)}
-                  <TableToolbar {...getToolbarProps()}>
-                    <TableToolbarSearch
-                      persistent={true}
-                      tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
-                      onChange={(onInputChange) => {
-                        setSearchText(onInputChange.target.value);
-                      }}
-                      placeholder={"Search"}
-                    />
-                    {batchActionProps.batchActions.map((action) => {
-                      return (
-                        <TableBatchAction
-                          key={action.key}
-                          renderIcon={action.icon}
-                          disabled={!(selectRows.length === 1)}
-                          onClick={() => setActionProps(action)}
-                        >
-                          {action.label}
-                        </TableBatchAction>
-                      );
-                    })}
-                  </TableToolbar>
-                  <Table {...getTableProps()}>
+                  {((rows.length>0)&&<Table {...getTableProps()} style={{marginTop:"2rem"}}>
+                    
                     <TableHead>
                       <TableRow>
-                        <TableSelectAll {...getSelectionProps()} />
                         {headers.map((header) => (
                           <TableHeader {...getHeaderProps({ header })}>
                             {header.header}
@@ -220,23 +253,81 @@ const Services = () => {
                     </TableHead>
                     <TableBody>
                       {rows.map((row) => (
+                        
                         <TableRow key={row.id}>
-                          <TableSelectRow {...getSelectionProps({ row })} />
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                          {row.cells.map((cell,i) => ((cell.value||cell.value==="") &&
+                            ((i!==3)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{row.cells[i].value} {(row.cells[i].value==="CREATED"&&<CheckmarkFilled />)}{(row.cells[i].value==="NEW"&&<Pending />)}{(row.cells[i].value==="IN_PROGRESS"&&<InProgress />)}</TableCell>)
+                            
                           ))}
+                          
+                          <TableCell className="cds--table-column-menu">
+                            <OverflowMenu size="sm" flipped>
+                              
+                              <OverflowMenuItem
+                              key={details_action.key}
+                              onClick={() => 
+                               {
+                                //  console.log(servicesrows)
+                                const selectedrow=servicesrows.filter((d)=>
+                                d.id===row.id
+                                )
+                              
+                                 setSelectRow(selectedrow)
+                                 setActionProps(details_action)
+                               } }
+                              itemText="View Details" />
+                              <OverflowMenuItem 
+                              key={extend_action.key}
+                               onClick={() => 
+                                {
+                                  const selectedrow=displayData.filter((d)=>
+                                d.id===row.id
+                                )
+                              
+                                 setSelectRow(selectedrow)
+                                  setActionProps(extend_action)
+                                } }
+                                itemText="Request Extension" />
+                              <OverflowMenuItem 
+                               key={details_action.key}
+                               onClick={() => 
+                                {
+                                  const selectedrow=displayData.filter((d)=>
+                                d.id===row.id
+                                )
+                              
+                                 setSelectRow(selectedrow)
+                                  setActionProps(delete_action)
+                                }
+                                } itemText="Delete service" />
+                            </OverflowMenu>
+                          </TableCell>
                         </TableRow>
                       ))}
+                       {
+                    
+                  }
                     </TableBody>
-                  </Table>
+                   
+                  </Table>)}
+                  
                 </TableContainer>
+                {(rows.length===0 &&<div style={{backgroundColor:"#f4f4f4",padding:"1rem",marginTop:"3rem"}}>
+        {(renderNoDataEmptyState()) }
+        </div>)}
+        
+                </div>
+                </>
               );
             }}
           </DataTable>
-          {<FooterPagination displayData={rows} />}
+          </Column>
+          </Grid>
         </>
       )}
     </>
   );
-};
-export default Services;
+  
+}
+
+export default Services

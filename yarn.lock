@@ -7,7 +7,7 @@
   "resolved" "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz"
   "version" "1.2.6"
 
-"@adobe/css-tools@^4.0.1", "@adobe/css-tools@^4.3.1":
+"@adobe/css-tools@^4.3.1":
   "integrity" "sha512-/62yikz7NLScCGAAST5SHdnjaDJQBDq0M2muyRTpf2VQhw6StBg2ALiu73zSJQ4fMVLA+0uBhBHAle7Wg+2kSg=="
   "resolved" "https://registry.npmjs.org/@adobe/css-tools/-/css-tools-4.3.1.tgz"
   "version" "4.3.1"
@@ -66,7 +66,7 @@
     "debug" "^4.1.0"
     "gensync" "^1.0.0-beta.2"
     "json5" "^2.2.2"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/eslint-parser@^7.16.3":
   "integrity" "sha512-C69RWYNYtrgIRE5CmTd77ZiLDXqgBipahJc/jHP3sLcAGj6AJzxNIuKNpVnICqbyK7X3pFUfEvL++rvtbQpZkQ=="
@@ -75,7 +75,7 @@
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals" "5.1.1-v1"
     "eslint-visitor-keys" "^2.1.0"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/generator@^7.22.5", "@babel/generator@^7.23.0", "@babel/generator@^7.7.2":
   "integrity" "sha512-lN85QRR+5IbYrMWM6Y4pE/noaQtg4pNiqeNGX60eqOfo6gtEj6uw/JagelB8vVztSd7R6M5n1+PQkDbHbBRU4g=="
@@ -110,7 +110,7 @@
     "@babel/helper-validator-option" "^7.22.5"
     "browserslist" "^4.21.3"
     "lru-cache" "^5.1.1"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/helper-create-class-features-plugin@^7.18.6", "@babel/helper-create-class-features-plugin@^7.22.5":
   "integrity" "sha512-xkb58MyOYIslxu3gKmVXmjTtUPvBU4odYzbiIQbWwLKIHCsx6UGZGX6F1IznMFVnDdirseUZopzN+ZRt8Xb33Q=="
@@ -125,7 +125,7 @@
     "@babel/helper-replace-supers" "^7.22.5"
     "@babel/helper-skip-transparent-expression-wrappers" "^7.22.5"
     "@babel/helper-split-export-declaration" "^7.22.5"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/helper-create-regexp-features-plugin@^7.18.6", "@babel/helper-create-regexp-features-plugin@^7.22.5":
   "integrity" "sha512-1VpEFOIbMRaXyDeUwUfmTIxExLwQ+zkW+Bh5zXpApA3oQedBx9v/updixWxnx/bZpKw7u8VxWjb/qWpIcmPq8A=="
@@ -134,7 +134,7 @@
   dependencies:
     "@babel/helper-annotate-as-pure" "^7.22.5"
     "regexpu-core" "^5.3.1"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/helper-define-polyfill-provider@^0.4.0":
   "integrity" "sha512-RnanLx5ETe6aybRi1cO/edaRH+bNYWaryCEmjDDYyNr4wnSzyOp8T0dWipmqVHKEY3AbVKUom50AKSlj1zmKbg=="
@@ -921,7 +921,7 @@
     "babel-plugin-polyfill-corejs2" "^0.4.3"
     "babel-plugin-polyfill-corejs3" "^0.8.1"
     "babel-plugin-polyfill-regenerator" "^0.5.0"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/plugin-transform-shorthand-properties@^7.22.5":
   "integrity" "sha512-vM4fq9IXHscXVKzDv5itkO1X52SmdFBFcMIBZ2FRn2nqVYqw6dBexUgMvAjHW+KXpPPViD/Yo3GrDEBaRC0QYA=="
@@ -1084,7 +1084,7 @@
     "babel-plugin-polyfill-corejs3" "^0.8.1"
     "babel-plugin-polyfill-regenerator" "^0.5.0"
     "core-js-compat" "^3.30.2"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "@babel/preset-modules@^0.1.5":
   "integrity" "sha512-A57th6YRG7oR3cq/yt/Y84MvGgE0eJG2F1JLhKuyG+jFxEgrd/HAMJatiFtmOiZurz+0DkrvbheCLaV5f2JfjA=="
@@ -2069,7 +2069,7 @@
   "resolved" "https://registry.npmjs.org/@testing-library/jest-dom/-/jest-dom-5.16.5.tgz"
   "version" "5.16.5"
   dependencies:
-    "@adobe/css-tools" "^4.0.1"
+    "@adobe/css-tools" "^4.3.1"
     "@babel/runtime" "^7.9.2"
     "@types/testing-library__jest-dom" "^5.9.1"
     "aria-query" "^5.0.0"
@@ -4489,7 +4489,7 @@
     "minimatch" "^3.1.2"
     "object.values" "^1.1.6"
     "resolve" "^1.22.1"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
     "tsconfig-paths" "^3.14.1"
 
 "eslint-plugin-jest@^25.3.0":
@@ -4519,7 +4519,7 @@
     "minimatch" "^3.1.2"
     "object.entries" "^1.1.6"
     "object.fromentries" "^2.0.6"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "eslint-plugin-react-hooks@^4.3.0":
   "integrity" "sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g=="
@@ -4544,7 +4544,7 @@
     "object.values" "^1.1.6"
     "prop-types" "^15.8.1"
     "resolve" "^2.0.0-next.4"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
     "string.prototype.matchall" "^4.0.8"
 
 "eslint-plugin-testing-library@^5.0.1":
@@ -5820,7 +5820,7 @@
     "@babel/parser" "^7.14.7"
     "@istanbuljs/schema" "^0.1.2"
     "istanbul-lib-coverage" "^3.2.0"
-    "semver" "^6.3.0"
+    "semver" "7.5.2"
 
 "istanbul-lib-report@^3.0.0":
   "integrity" "sha512-wcdi+uAKzfiGT2abPpKZ0hSU1rGQjUQnLvtY5MpQ7QCTahD3VODhcu4wcfY1YtkGaDD5yuydOLINXsfbus9ROw=="
@@ -7826,7 +7826,7 @@
   "resolved" "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   "version" "4.2.0"
 
-"postcss@^7.0.0 || ^8.0.1", "postcss@^8", "postcss@^8.0.0", "postcss@^8.0.3", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.1.4", "postcss@^8.2", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.3", "postcss@^8.3.5", "postcss@^8.4", "postcss@^8.4.21", "postcss@^8.4.23", "postcss@^8.4.31", "postcss@^8.4.4", "postcss@^8.4.6", "postcss@>= 8", "postcss@>=8", "postcss@>=8.0.9":
+"postcss@^7.0.0 || ^8.0.1", "postcss@^8", "postcss@^8.0.0", "postcss@^8.0.3", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.1.4", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.3", "postcss@^8.3.5", "postcss@^8.4", "postcss@^8.4.21", "postcss@^8.4.23", "postcss@^8.4.31", "postcss@^8.4.4", "postcss@^8.4.6", "postcss@>= 8", "postcss@>=8", "postcss@>=8.0.9":
   "integrity" "sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.31.tgz"
   "version" "8.4.31"
@@ -8638,11 +8638,6 @@
   "version" "6.3.1"
 
 "semver@^6.1.2":
-  "integrity" "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="
-  "resolved" "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
-  "version" "6.3.1"
-
-"semver@^6.3.0":
   "integrity" "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="
   "resolved" "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
   "version" "6.3.1"

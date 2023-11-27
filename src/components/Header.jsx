@@ -7,6 +7,8 @@ import {
   HeaderName,
   HeaderMenuButton,
   HeaderGlobalAction,
+  HeaderNavigation,
+  HeaderMenuItem,
   HeaderGlobalBar,
   SideNav,
   SideNavItems,
@@ -31,8 +33,8 @@ const HeaderNav = () => {
     <HeaderContainer
       render={({ isSideNavExpanded, onClickSideNavExpand }) => (
         <>
-          <p>welcome</p>
-          <Header aria-label="IBM Platform Name">
+          
+          <Header>
             <HeaderMenuButton
               aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
               isCollapsible
@@ -40,9 +42,12 @@ const HeaderNav = () => {
               isActive={isSideNavExpanded}
               aria-expanded={isSideNavExpanded}
             />
-            <HeaderName href="/" prefix="Power">
-              Access Cloud
+            <HeaderName href="/" prefix="">
+             Power Access Cloud
             </HeaderName>
+            <HeaderNavigation>
+              <HeaderMenuItem href="#">FAQ</HeaderMenuItem>
+            </HeaderNavigation>
             <HeaderGlobalBar>
               <HeaderGlobalAction
                 aria-label="Profile"
@@ -66,11 +71,10 @@ const HeaderNav = () => {
               }}
             >
               <SideNavItems>
-                <MenuLink url="/" label="Home" />
-                <MenuLink url="/catalogs" label="Catalogs" />
+                <MenuLink url="/" label="Dashboard" />
+                <MenuLink url="/groups" label="Group details" />
+                <MenuLink url="/catalogs" label="Catalog" />
                 <MenuLink url="/services" label="Services" />
-                <MenuLink url="/groups" label="Groups" />
-                <MenuLink url="/requests" label={isAdmin ? "Requests" : "My Requests"} />
                 <MenuLink url="/keys" label="Keys" />
                 {isAdmin && <MenuLink url="/users" label="Users" />}
                 {isAdmin && <MenuLink url="/events" label="Events" />}

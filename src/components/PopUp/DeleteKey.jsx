@@ -4,7 +4,8 @@ import { deleteKeys } from "../../services/request";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@carbon/react";
 
-const DeleteKey = ({ selectRows, setActionProps, response }) => {
+const DeleteKey = ({ selectRows, pagename, setActionProps, response }) => {
+
   const id = selectRows[0]?.id;
   let navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const DeleteKey = ({ selectRows, setActionProps, response }) => {
     }
     response(title, message, errored)
     setActionProps("");
-    navigate("/keys");
+    navigate(pagename);
   };
 
   return (

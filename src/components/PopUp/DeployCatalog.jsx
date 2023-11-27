@@ -1,22 +1,13 @@
-// import axios from "axios";
 import React, { useState } from "react";
 import { deployCatalog } from "../../services/request";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@carbon/react";
-
 const DeployCatalog = ({ selectRows, setActionProps, response }) => {
   const [catalogName, setCatalogName] = useState("");
   const [primaryButtonDisabled, setPrimaryButtonDisabled] = useState(false);
   const [primaryButtonText, setPrimaryButtonText] = useState("Submit");
-
-  let name = "";
-  selectRows[0].cells.forEach((item) => {
-    if (item.id.split(":")[1] === "name") {
-      name = item?.value;
-    }
-  });
+  let name = selectRows.name;
   let navigate = useNavigate();
-
   const onSubmit = async () => {
     let title = "";
     let message = "";
@@ -32,15 +23,25 @@ const DeployCatalog = ({ selectRows, setActionProps, response }) => {
         errored = true;
       } else {
         title = "The catalog was deployed successfully.";
+        
       }
     } catch (error) {
       console.log(error);
     }
     response(title, message, errored)
+    
     setActionProps("");
-    navigate("/catalogs");
-  };
 
+    if(errored){
+      navigate("/catalogs");
+    }else{
+      setTimeout(() => {
+        navigate("/services");
+      }, 2000);
+      
+    }
+    
+  };
   return (
     <Modal
       modalHeading="Deploy Catalog"
@@ -89,5 +90,4 @@ const DeployCatalog = ({ selectRows, setActionProps, response }) => {
     </Modal>
   );
 }
-
 export default DeployCatalog;

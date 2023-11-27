@@ -6,9 +6,9 @@ import GroupList from "./GroupList";
 import RequestList from "./RequestList";
 import NewRequest from "./PopUp/NewRequest";
 import About from "./About";
-import Terms from "./Terms";
-import AuthRoute from "./PrivateRoute/AuthRoute";
+import Register from "./Register";
 import TnCRoute from "./PrivateRoute/TnCRoute";
+import AuthRoute from "./PrivateRoute/AuthRoute";
 import HeaderNav from "./Header";
 import {Routes , Route } from "react-router-dom";
 import UserService from "../services/UserService";
@@ -28,8 +28,8 @@ const App = () => {
       return(
         <Routes>
         <Route path="/" element={<TnCRoute Component={About} />} />
-        <Route path="/login" element={<AuthRoute Component={Login} />} />
-        <Route path="/terms" element={<AuthRoute Component={Terms} />} />
+        <Route path="/login" element={<AuthRoute Component={Login} />}/>
+        <Route path="/register" Component={Register} />
         <Route path="/groups" element={<TnCRoute Component={GroupList} />} />
         <Route path="/requests" element={<TnCRoute Component={RequestList} />} />
         <Route path="/request/:id" element={<TnCRoute Component={NewRequest} />} />

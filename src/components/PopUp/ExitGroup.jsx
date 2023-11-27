@@ -4,7 +4,7 @@ import { deleteGroup } from "../../services/request";
 import { Modal } from "@carbon/react";
 import { useNavigate } from "react-router-dom";
 
-const ExitGroup = ({ selectRows, setActionProps, response }) => {
+const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
   const [primaryButtonDisabled, setPrimaryButtonDisabled] = useState(false);
   const [primaryButtonText, setPrimaryButtonText] = useState("Exit");
   const id = selectRows[0]?.id;
@@ -28,7 +28,7 @@ const ExitGroup = ({ selectRows, setActionProps, response }) => {
     }
     response(title, message, errored)
     setActionProps("");
-    navigate("/groups");
+    navigate(pagename);
   };
 
   const [g, setGroup] = useState({
@@ -42,7 +42,7 @@ const ExitGroup = ({ selectRows, setActionProps, response }) => {
 
   return (
     <Modal
-      modalHeading="Exit Group"
+      modalHeading="Leave Group"
       danger={true}
       onRequestClose={() => {
         setActionProps("");
@@ -60,7 +60,7 @@ const ExitGroup = ({ selectRows, setActionProps, response }) => {
     >
       <div>
         <div className="mb-3">
-          <h4>Are you sure want to Exit from this group?</h4>
+          <h4>Please share why you are leaving this group</h4>
         </div>
         <div className="mb-3">
           <label htmlFor="Justifcation" className="form-label">
@@ -69,7 +69,7 @@ const ExitGroup = ({ selectRows, setActionProps, response }) => {
           <textarea
             type={"text"}
             className="form-control"
-            placeholder="Enter your justifcation to exit from this group"
+            placeholder="Enter your justifcation to leave from this group"
             name="justification"
             value={g?.justification}
             onChange={(e) => onInputChange(e)}
