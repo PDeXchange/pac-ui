@@ -71,11 +71,10 @@ const HeaderNav = () => {
               }}
             >
               <SideNavItems>
-                <MenuLink url="/" label="Dashboard" />
-                <MenuLink url="/groups" label="Group details" />
-                <MenuLink url="/catalogs" label="Catalog" />
-                <MenuLink url="/services" label="Services" />
-                <MenuLink url="/keys" label="Keys" />
+                <MenuLink url="/" label={isAdmin ? "Requests" : "Dashboard"} />
+                
+                <MenuLink url={isAdmin ? "/catalogs-admin" : "/catalogs"} label="Catalog" />
+                {isAdmin && <MenuLink url="/services-admin" label="Services" />}
                 {isAdmin && <MenuLink url="/users" label="Users" />}
                 {isAdmin && <MenuLink url="/events" label="Events" />}
               </SideNavItems>

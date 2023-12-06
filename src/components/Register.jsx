@@ -86,7 +86,7 @@ const Register = () => {
           }}>Clear</Button>  <Button disabled={!(tnc_acc && (just!=''))} kind="primary" onClick={async () => {
             sessionStorage.setItem("Justification", just);
            sessionStorage.setItem("TnC_acceptance", tnc_acc);
-           navigate("/about")
+           navigate("/dashboard")
           }}>Submit</Button>
           </div>
         </Column>

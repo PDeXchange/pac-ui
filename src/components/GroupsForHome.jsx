@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { allGroups } from "../services/request";
+import { allGroups,allRequests } from "../services/request";
 //import { NoDataEmptyState } from "@carbon/ibm-products";
 
 import {
@@ -14,9 +14,10 @@ import {
   DataTableSkeleton,
   OverflowMenu,
   OverflowMenuItem,
-  Button
+  Button,
+  Tooltip
 } from "@carbon/react";
-import { MobileAdd, TrashCan, Add } from "@carbon/icons-react";
+import { MobileAdd, TrashCan, Add, Information } from "@carbon/icons-react";
 import { clientSearchFilter } from "../utils/Search";
 import { flattenArrayOfObject } from "./commonUtils";
 
@@ -70,6 +71,7 @@ const headers = [
 
 let selectRows = [];
 const GroupsForHome = () => {
+  
   const [rows, setRows] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [title, setTitle] = useState("");
@@ -79,7 +81,7 @@ const GroupsForHome = () => {
   const [actionProps, setActionProps] = useState("");
   const isAdmin = UserService.isAdminUser();
   const [allGroupdata,setAllGroupsdata]=useState([])
-
+  const [pendinggroups,setPendingGroups]=useState([])
 
   const filteredHeaders = isAdmin
     ? headers // Display all buttons for admin users
@@ -87,9 +89,33 @@ const GroupsForHome = () => {
 
   const fetchData = async () => {
     let data = [];
+    let request=[];
     data = await allGroups();
+    data?.payload.sort((a, b) => {
+      let fa = a.quota.cpu,
+        fb = b.quota.cpu;
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
+    request= await allRequests();
     setAllGroupsdata(data)
-    const result=data.payload.filter((d)=>d.membership)
+    const newResult = request.payload.filter((d)=>d.type==='GROUP'&& d.state==="NEW");
+    setPendingGroups(newResult)
+    const result=data.payload.filter((d)=>d.membership);
+
+    //console.log(data.payload);
+    newResult.forEach((p)=>{
+     var pendingItem=data.payload.filter((d)=>d.name===p.group.group)
+     
+     result.push(pendingItem[0])
+    })
+
+    //console.log(result)
     setRows(result);
     setLoading(false);
   };
@@ -103,13 +129,13 @@ const GroupsForHome = () => {
 
   useEffect(() => {
     fetchData();
-    // console.log(allGroupdata.payload);
     
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [actionProps]); 
 
   const displayData = flattenArrayOfObject(
     clientSearchFilter(searchText, rows)
   );
+  
   
   const renderSkeleton = () => {
     const headerLabels = filteredHeaders?.map((x) => x?.header);
@@ -125,6 +151,7 @@ const GroupsForHome = () => {
   };
 
   const renderActionModals = () => {
+    
     return (
       <React.Fragment>
         {actionProps?.key === BUTTON_REQUEST && (
@@ -186,7 +213,12 @@ const GroupsForHome = () => {
                 
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
-                  <h4>My Group</h4>
+                  <h4>My Group
+                  <Tooltip align="bottom-left" size="lg" label="Groups control resource allocation by assigning the maximum vCPU and memory available to you. By default, all new users are added to the Bronze group which includes .5 vCPU and 8 GB of memory. If you require more CPU and memory, you can upgrade your group with a valid use case. You can only be a member of one group at a time.">
+                    <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+                            <Information />
+                          </Button>
+                    </Tooltip></h4>
                 <TableContainer
                   
                   {...getTableContainerProps()}
@@ -205,15 +237,15 @@ const GroupsForHome = () => {
                       {rows.map((row) => (
                         
                         <TableRow key={row.id}>
-                          {row.cells.map((cell) => (cell.value &&
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                          {row.cells.map((cell,i) => (cell.value &&
+                            // <TableCell key={cell.id}>{cell.value}</TableCell>
+                            ((i!==3)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{(row.cells[i].value==="Active"&&"Approved")}{(row.cells[i].value==="Inactive"&&"Pending")}</TableCell>)
                           ))}
                           <TableCell className="cds--table-column-menu">
-                            <OverflowMenu size="sm" flipped>
+                            {row.cells[3].value==="Active"&&  <OverflowMenu size="sm" flipped>
                               
-                              <OverflowMenuItem
+                              <OverflowMenuItem 
                               key={delete_action.key}
-                              renderIcon={delete_action.icon}
                               
                               onClick={() => 
                                 {
@@ -223,7 +255,8 @@ const GroupsForHome = () => {
                                 }
                                 }
                               itemText="Leave group" />
-                            </OverflowMenu>
+                            </OverflowMenu>}
+                          
                           </TableCell>
                         </TableRow>
                       ))}
@@ -239,8 +272,8 @@ const GroupsForHome = () => {
                    {renderNoDataEmptyState()}
                   </div>
                   ) }
-                  <Button disabled={rows.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add} onClick={() => setActionProps(new_request)}>
-                        Upgrade group
+                  <Button disabled={rows.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add} onClick={() => {if(pendinggroups.length>0){ alert('You already have a pending request, you can not creat a new request at the moment')} else{setActionProps(new_request)}}}>
+                        Upgrade
                       </Button>
                   
                 </div>

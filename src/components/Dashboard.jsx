@@ -1,12 +1,39 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Grid, Column } from "@carbon/react";
 import "../styles/registration.scss";
 import GroupsForHome from "./GroupsForHome";
 import KeysForHome from "./KeysForHome";
 import QuickLinks from "./QuickLinks";
 import ServicesForHome from "./ServicesForHome";
+import { allGroups } from "../services/request";
 // import ServicesForHome from "./ServicesForHome";
-const About = () => {
+
+const Dashboard = () => {
+
+  const [allGroupdata,setAllGroupsdata]=useState([])
+  const fetchData = async () => {
+    let data = [];
+
+    data = await allGroups();
+    data?.payload.sort((a, b) => {
+      let fa = a.quota.cpu,
+        fb = b.quota.cpu;
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
+    
+    setAllGroupsdata(data.payload)
+  }
+  useEffect(()=>{
+    fetchData();
+    
+  },[])
+  
   return (
     <Grid className="landing-page" fullWidth>
       <Column
@@ -28,7 +55,7 @@ const About = () => {
             <GroupsForHome />
           </Column>
           <Column lg={8} md={4} sm={4}>
-          <ServicesForHome />
+          <ServicesForHome groups={allGroupdata} />
           </Column>
         </Grid><br /><br />
         <Grid>
@@ -41,9 +68,9 @@ const About = () => {
         </Grid>
         <br />
         <br />
-        {/* <ServicesForHome /> */}
+        
       </Column>
     </Grid>
   );
 };
-export default About;
+export default Dashboard;

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Column } from "@carbon/react";
 import { allGroups } from "../services/request";
-import centos from '../assets/images/cent-os-logo.png';
+import "../styles/common.scss";
 import {
   Button,
   Tile,
-  InlineNotification
+  InlineNotification,
+  Tooltip
 } from "@carbon/react";
-
-import { MobileAdd } from "@carbon/icons-react";
+import { MobileAdd, Information, CheckmarkFilled} from "@carbon/icons-react";
 import { getAllCatalogs } from "../services/request";
 import DeployCatalog from "./PopUp/DeployCatalog";
 
@@ -97,20 +97,32 @@ const Catalogs = () => {
           {renderActionModals()}
       {rows.map((row) => (
     <Column
-        lg={5}
+        lg={4}
         md={4}
         sm={2}
-      ><Tile style={{paddingBottom:"50px", marginBottom:"50px"}} >
-        <img src={centos} alt="centos" /><br/>
+      ><Tile style={{paddingBottom:"50px", marginBottom:"50px", height:"85%"}} >
+        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Ready to deploy">
+<Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+<CheckmarkFilled />
+      </Button>
+</Tooltip>}
+        <img src={row.image_thumbnail_reference} width="15%" height="auto" alt="centos" /><br/>
       <strong><em>{row.name}</em></strong><br/><br/>
-      OS: CentOS 8 Stream<br/>
+      
 vCPU: {row.capacity.cpu}<br/>
 Memory: {row.capacity.memory} GB<br/><br/>
 {row.description}
 <br /><br />
-{/* <Tooltip style={{float:"right"}} align="top" label="You do not have enough resources available to deploy this service. Select a different service or upgrade your group to proceed."> */}
-<Button style={{float:"right"}}  size="sm" kind="tertiary" disabled={(row.capacity.cpu>=cpu)||(row.capacity.memory>=memory)} onClick={() => {setId(row); setActionProps(deploy)}}>Deploy</Button>
-{/* </Tooltip> */}
+<span style={{float:"right"}} >
+<Button  size="sm" kind="tertiary" disabled={(row.capacity.cpu>=cpu)||(row.capacity.memory>=memory)} onClick={() => {setId(row); setActionProps(deploy)}}>Deploy</Button>
+{((row.capacity.cpu>=cpu)||(row.capacity.memory>=memory))&&<Tooltip align="top" label="You do not have enough resources available to deploy this service. Select a different service or upgrade your group to proceed.">
+<Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+        <Information />
+      </Button>
+</Tooltip>}
+</span>
+
+
    </Tile>
     </Column>
     ))}

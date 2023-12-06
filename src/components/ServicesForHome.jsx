@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { allGroups,getServices } from "../services/request";
+import { getServices } from "../services/request";
 import {
   DataTable,
   Table,
@@ -13,21 +13,19 @@ import {
   OverflowMenu,
   OverflowMenuItem,
   Button,
-  
+  Tooltip
 } from "@carbon/react";
 import { useNavigate } from "react-router-dom";
 import { flattenArrayOfObject } from "./commonUtils";
 import UserService from "../services/UserService";
-import { Add,CheckmarkFilled,Pending,InProgress } from "@carbon/icons-react";
+import { Add,CheckmarkFilled,Pending,InProgress, Information, Renew } from "@carbon/icons-react";
 import DeleteService from "./PopUp/DeleteService";
 import ServiceExtend from "./PopUp/ServiceExtend";
 import ServiceDetails from './PopUp/ServiceDetails';
 import Notify from "./utils/Notify";
-
 const BUTTON_REQUEST = "BUTTON_REQUEST";
 const BUTTON_EXTEND = "BUTTON_EXTEND";
 const BUTTON_DETAILS = "BUTTON_DETAILS";
-
 const extend_action={
   key: BUTTON_EXTEND,
   label: "Change Expiry",
@@ -42,7 +40,6 @@ const delete_action={
   standalone: true,
   hasIconOnly: true,
 }
-
 const details_action={
   key: BUTTON_DETAILS,
   label: "Details",
@@ -50,9 +47,7 @@ const details_action={
   standalone: true,
   hasIconOnly: true,
 }
-
 const headers = [
-  
   {
     key: "display_name",
     header: "Service name",
@@ -70,10 +65,8 @@ const headers = [
     header: "Action",
   }
 ];
-const ServicesForHome=()=> {
-
+const ServicesForHome=({groups})=> {
   let navigate = useNavigate();
-  const [groupdata, setGroupdata] = useState([]);
   const [servicesrows, setServicesRows] = useState([]);
   const isAdmin = UserService.isAdminUser();
   const [loading, setLoading] = useState(true);
@@ -81,44 +74,29 @@ const ServicesForHome=()=> {
   const [title, setTitle] = useState("");
   const [notifyKind, setNotifyKind] = useState("");
   const [message, setMessage] = useState("");
-
+  const result=groups.filter((d)=>d.membership)
   const [selectRow, setSelectRow] = useState([])
-
   const filteredHeaders = isAdmin
   ? headers // Display all buttons for admin users
   : headers.filter((header) => !header.adminOnly); // Filter out admin-only buttons for non-admin users
-
-
-  const fetchData = async () => {
-    let data = [];
-    data = await allGroups();
-    const result=data.payload.filter((d)=>d.membership)
-    setGroupdata(result);
-    
-  };
   const fetchServicesData = async () => {
     let data = await getServices();
     setServicesRows(data?.payload);
-    
-    // setServicesRows(data?.payload.map((row) => ({ ...row, id: row.name })));
-    
     setLoading(false);
   };
-
+  // useEffect(()=>{
+  //   fetchServicesData();
+  //   const intervalId = setInterval(() => {
+  //     fetchServicesData(); // Fetch data every 1 minutes
+  //   }, 60000);
+  //   return () => clearInterval(intervalId);
+  // },[actionProps])
   useEffect(()=>{
-    
     fetchServicesData();
-  },[servicesrows])
-
-  useEffect(()=>{
-    fetchData();
-    
-  },[])
-
+  },[actionProps])
   const displayData = flattenArrayOfObject(
     servicesrows
   );
-  
   const renderSkeleton = () => {
     const headerLabels = filteredHeaders?.map((x) => x?.header);
     return (
@@ -131,19 +109,18 @@ const ServicesForHome=()=> {
       />
     );
   };
-  
-
   const handleResponse = (title, message, errored) => {
     setTitle(title);
     setMessage(message);
     errored ? setNotifyKind("error") : setNotifyKind("success");
+    if(!errored){
+      fetchServicesData();
+    }
   };
-
   const renderNoDataEmptyState=()=>{
     return (<div>There are no services to display. After your group access is approved, you can add a service from the catalog.
       </div>)
   }
-
   const renderActionModals = () => {
     return (
       <React.Fragment>
@@ -173,11 +150,8 @@ const ServicesForHome=()=> {
       </React.Fragment>
     );
   };
-
-
   return (
     <>
-    
       <Notify
         title={title}
         message={message}
@@ -201,20 +175,24 @@ const ServicesForHome=()=> {
               getTableProps,
               getHeaderProps,
               getTableContainerProps,
-              
             }) => {
-              
               return (
-                
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
-                  <h4>My Services</h4>
+                <Button size="sm" kind="ghost" onClick={()=> fetchServicesData()} style={{float:"right"}} >
+                        <Renew />
+                      </Button>
+                      <h4>My Services
+                  <Tooltip align="bottom-left" size="lg" label="Review your service details including status, expiration date, and access information. Request additional services from the catalog.">
+                    <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+                            <Information />
+                          </Button>
+                    </Tooltip></h4>
+                   
                 <TableContainer
-                  
                   {...getTableContainerProps()}
                 >
                   {((rows.length>0)&&<Table {...getTableProps()} style={{marginTop:"2rem"}}>
-                    
                     <TableHead>
                       <TableRow>
                         {headers.map((header) => (
@@ -226,7 +204,6 @@ const ServicesForHome=()=> {
                     </TableHead>
                     <TableBody>
                       {rows.map((row) => (
-                        
                         <TableRow key={row.id}>
                           {row.cells.map((cell,i) => (cell.value &&
                             // <TableCell key={cell.id}>{cell.value}</TableCell>
@@ -234,40 +211,35 @@ const ServicesForHome=()=> {
                           ))}
                           <TableCell className="cds--table-column-menu">
                             <OverflowMenu size="sm" flipped>
-                              
                               <OverflowMenuItem
                               key={details_action.key}
-                              onClick={() => 
+                              onClick={() =>
                                {
-                                //  console.log(servicesrows)
                                 const selectedrow=servicesrows.filter((d)=>
                                 d.id===row.id
                                 )
-                              
                                  setSelectRow(selectedrow)
                                  setActionProps(details_action)
                                } }
                               itemText="View Details" />
-                              <OverflowMenuItem 
+                              <OverflowMenuItem
                               key={extend_action.key}
-                               onClick={() => 
+                               onClick={() =>
                                 {
                                   const selectedrow=displayData.filter((d)=>
                                 d.id===row.id
                                 )
-                              
                                  setSelectRow(selectedrow)
                                   setActionProps(extend_action)
                                 } }
                                 itemText="Request Extension" />
-                              <OverflowMenuItem 
+                              <OverflowMenuItem
                                key={details_action.key}
-                               onClick={() => 
+                               onClick={() =>
                                 {
                                   const selectedrow=displayData.filter((d)=>
                                 d.id===row.id
                                 )
-                              
                                  setSelectRow(selectedrow)
                                   setActionProps(delete_action)
                                 }
@@ -277,17 +249,14 @@ const ServicesForHome=()=> {
                         </TableRow>
                       ))}
                        {
-                    
                   }
                     </TableBody>
-                   
                   </Table>)}
-                  
                 </TableContainer>
-                {(rows.length===0 &&<div style={{backgroundColor:"#f4f4f4",padding:"1rem",marginTop:"3rem"}}>
+                {(rows.length===0 &&<div style={{backgroundColor:"#F4F4F4",padding:"1rem",marginTop:"3rem"}}>
         {(renderNoDataEmptyState()) }
         </div>)}
-        <Button onClick={()=>navigate('/catalogs')} disabled={groupdata.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add}>
+        <Button onClick={()=>navigate('/catalogs')} disabled={result.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add}>
                         Go to catalog
                       </Button>
                 </div>
@@ -299,7 +268,5 @@ const ServicesForHome=()=> {
       )}
     </>
   );
-  
 }
-
 export default ServicesForHome

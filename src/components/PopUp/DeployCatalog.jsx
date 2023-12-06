@@ -36,7 +36,7 @@ const DeployCatalog = ({ selectRows, setActionProps, response }) => {
       navigate("/catalogs");
     }else{
       setTimeout(() => {
-        navigate("/services");
+        navigate("/");
       }, 2000);
       
     }

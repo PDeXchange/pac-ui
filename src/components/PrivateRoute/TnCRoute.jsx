@@ -21,7 +21,7 @@ const TnCRoute = ({ Component }) => {
           id: "474fb329-de64-4e2f-bab5-4fec06c489ed",
           justification: just
         });
-        navigate("/about");
+        navigate("/dashboard");
         
       }else{ 
         alert("You need to register before you can log in");

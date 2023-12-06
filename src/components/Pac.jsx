@@ -3,17 +3,17 @@ import NavbarComp from "./Navbar";
 import GroupList from "./GroupList";
 import RequestList from "./RequestList";
 import NewRequest from "./NewRequest";
-import About from "./About";
+import Dashboard from "./Dashboard";
 
 const Pac = () => (
   <>
     <NavbarComp />
     <Routes>
-      <Route exact path="/" element={<About />} />
+      <Route exact path="/" element={<Dashboard />} />
       <Route exact path="/groups" element={<GroupList />} />
       <Route exact path="/requests" element={<RequestList />} />
       <Route exact path="/request/:id" element={<NewRequest />} />
-      <Route exact path="/about" element={<About />} />
+      <Route exact path="/dashboard" element={<Dashboard />} />
     </Routes>
   </>
 );

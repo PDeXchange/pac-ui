@@ -2,10 +2,10 @@ import "../App.css";
 import React from "react";
 import Login from "./Login";
 import "bootstrap/dist/css/bootstrap.min.css";
-import GroupList from "./GroupList";
 import RequestList from "./RequestList";
+import ServicesAdmin from "./Services-admin";
 import NewRequest from "./PopUp/NewRequest";
-import About from "./About";
+import Dashboard from "./Dashboard";
 import Register from "./Register";
 import TnCRoute from "./PrivateRoute/TnCRoute";
 import AuthRoute from "./PrivateRoute/AuthRoute";
@@ -13,9 +13,8 @@ import HeaderNav from "./Header";
 import {Routes , Route } from "react-router-dom";
 import UserService from "../services/UserService";
 import "../App.css";
-import Keys from "./Keys";
 import Catalogs from "./Catalogs";
-import Services from "./Services";
+import CatalogsAdmin from "./Catalogs-admin";
 import Users from "./Users";
 import Events from "./Events";
 import { Theme } from "@carbon/react";
@@ -27,17 +26,22 @@ const App = () => {
     const RouterClass = () => {
       return(
         <Routes>
-        <Route path="/" element={<TnCRoute Component={About} />} />
+        
+        {!isAdmin && <Route path="/" element={<TnCRoute Component={Dashboard} />} />}
+        {isAdmin && <Route path="/" element={<TnCRoute Component={RequestList} />} />}
+
         <Route path="/login" element={<AuthRoute Component={Login} />}/>
         <Route path="/register" Component={Register} />
-        <Route path="/groups" element={<TnCRoute Component={GroupList} />} />
-        <Route path="/requests" element={<TnCRoute Component={RequestList} />} />
-        <Route path="/request/:id" element={<TnCRoute Component={NewRequest} />} />
-        <Route path="/about" element={<TnCRoute Component={About} />} />
-        <Route path="/keys" element={<TnCRoute Component={Keys} />} />
-        <Route path="/catalogs" element={<TnCRoute Component={Catalogs} />} />
-        <Route path="/services" element={<TnCRoute Component={Services} />} />
+        
+        
+        {!isAdmin && <Route path="/dashboard" element={<TnCRoute Component={Dashboard} />} />}
+        {!isAdmin && <Route path="/catalogs" element={<TnCRoute Component={Catalogs} />} />}
+        
+        {isAdmin && <Route path="/requests" element={<TnCRoute Component={RequestList} />} />}
+        {isAdmin && <Route path="/request/:id" element={<TnCRoute Component={NewRequest} />} />}
+        {isAdmin && <Route path="/catalogs-admin" element={<TnCRoute Component={CatalogsAdmin} />} />}
         {isAdmin && <Route path="/users" element={<TnCRoute Component={Users} />} />}
+        {isAdmin && <Route path="/services-admin" element={<TnCRoute Component={ServicesAdmin} />} />}
         {isAdmin && <Route path="/events" element={<TnCRoute Component={Events} />} />}
       </Routes>
       );
