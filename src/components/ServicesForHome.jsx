@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { getServices } from "../services/request";
+import { getServices, allRequests } from "../services/request";
 import {
   DataTable,
   Table,
@@ -61,6 +61,10 @@ const headers = [
     header: "Status",
   },
   {
+    key: "status.access_info",
+    header: "Access Info",
+  },
+  {
     key: "action",
     header: "Action",
   }
@@ -81,6 +85,31 @@ const ServicesForHome=({groups})=> {
   : headers.filter((header) => !header.adminOnly); // Filter out admin-only buttons for non-admin users
   const fetchServicesData = async () => {
     let data = await getServices();
+    let request= await allRequests();
+    const newResult = request.payload.filter((d)=>d.type==='SERVICE_EXPIRY'&& d.state==="NEW");
+
+    newResult.forEach((result)=>{
+      
+      data?.payload.forEach((item)=>{
+        if(item.name===result.service.name){
+          item.status.state="PENDING EXTENSION"
+          item.status.extentiondate=result.service.expiry
+          item.status.justification=result.justification
+        }
+      })
+    })
+    
+    console.log(data.payload);
+    data.payload.map((i)=>{
+      if(i.status.access_info===""){
+        i.status.access_info="..."
+      }else{
+        var begining=i.status.access_info.indexOf("ExternalIP:")
+        var end=i.status.access_info.indexOf("use any ")
+        i.status.access_info= i.status.access_info.slice(begining+12,end)
+      }
+      
+    })
     setServicesRows(data?.payload);
     setLoading(false);
   };
@@ -91,9 +120,11 @@ const ServicesForHome=({groups})=> {
   //   }, 60000);
   //   return () => clearInterval(intervalId);
   // },[actionProps])
+
   useEffect(()=>{
     fetchServicesData();
   },[actionProps])
+
   const displayData = flattenArrayOfObject(
     servicesrows
   );
@@ -114,8 +145,12 @@ const ServicesForHome=({groups})=> {
     setMessage(message);
     errored ? setNotifyKind("error") : setNotifyKind("success");
     if(!errored){
-      fetchServicesData();
+      setTimeout(() => {
+        fetchServicesData();
+      }, 3000);
+      
     }
+    
   };
   const renderNoDataEmptyState=()=>{
     return (<div>There are no services to display. After your group access is approved, you can add a service from the catalog.
@@ -179,8 +214,8 @@ const ServicesForHome=({groups})=> {
               return (
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
-                <Button size="sm" kind="ghost" onClick={()=> fetchServicesData()} style={{float:"right"}} >
-                        <Renew />
+                <Button size="md" kind="ghost" onClick={()=> fetchServicesData()} style={{float:"right"}} >
+                        <Renew size="24"/>
                       </Button>
                       <h4>My Services
                   <Tooltip align="bottom-left" size="lg" label="Review your service details including status, expiration date, and access information. Request additional services from the catalog.">
@@ -207,7 +242,7 @@ const ServicesForHome=({groups})=> {
                         <TableRow key={row.id}>
                           {row.cells.map((cell,i) => (cell.value &&
                             // <TableCell key={cell.id}>{cell.value}</TableCell>
-                            ((i!==2)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{row.cells[i].value} {(row.cells[i].value==="CREATED"&&<CheckmarkFilled />)}{(row.cells[i].value==="NEW"&&<Pending />)}{(row.cells[i].value==="IN_PROGRESS"&&<InProgress />)}</TableCell>)
+                            ((i!==2)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{row.cells[i].value==="PENDING EXTENSION"&&"Pending Extension"} {(row.cells[i].value==="CREATED"&&<>Active <CheckmarkFilled /></>)}{(row.cells[i].value==="NEW"&&<>Pending <Pending /></>)}{(row.cells[i].value==="IN_PROGRESS"&&<>Deploying <InProgress /></>)}</TableCell>)
                           ))}
                           <TableCell className="cds--table-column-menu">
                             <OverflowMenu size="sm" flipped>

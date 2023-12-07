@@ -46,7 +46,10 @@ const HeaderNav = () => {
              Power Access Cloud
             </HeaderName>
             <HeaderNavigation>
+              
               <HeaderMenuItem href="#">FAQ</HeaderMenuItem>
+              
+              
             </HeaderNavigation>
             <HeaderGlobalBar>
               <HeaderGlobalAction
