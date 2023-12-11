@@ -50,6 +50,10 @@ const App = () => {
     window.location.href = window.location.href.replace("/login", "");
     return;
   }
+  if ((auth === false || !isAdmin ) && ["/requests", "/catalogs-admin", "/users", "/services-admin", "/events"].includes(window.location.pathname)) {
+    window.location.href = "/login";
+    return;
+  }
   return (
     <React.Fragment>
       <Theme theme="g90">{auth === true && <HeaderNav />} </Theme>
