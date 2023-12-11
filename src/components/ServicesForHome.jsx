@@ -217,7 +217,7 @@ const ServicesForHome=({groups})=> {
                 <Button size="md" kind="ghost" onClick={()=> fetchServicesData()} style={{float:"right"}} >
                         <Renew size="24"/>
                       </Button>
-                      <h4>My Services
+                      <h4><span className="NumberIcon"><strong>3</strong></span> My Services
                   <Tooltip align="bottom-left" size="lg" label="Review your service details including status, expiration date, and access information. Request additional services from the catalog.">
                     <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
                             <Information />
@@ -244,9 +244,9 @@ const ServicesForHome=({groups})=> {
                             // <TableCell key={cell.id}>{cell.value}</TableCell>
                             ((i!==2)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{row.cells[i].value==="PENDING EXTENSION"&&"Pending Extension"} {(row.cells[i].value==="CREATED"&&<>Active <CheckmarkFilled /></>)}{(row.cells[i].value==="NEW"&&<>Pending <Pending /></>)}{(row.cells[i].value==="IN_PROGRESS"&&<>Deploying <InProgress /></>)}</TableCell>)
                           ))}
-                          <TableCell className="cds--table-column-menu">
+                          <TableCell >
                             <OverflowMenu size="sm" flipped>
-                              <OverflowMenuItem
+                              <OverflowMenuItem 
                               key={details_action.key}
                               onClick={() =>
                                {
@@ -267,7 +267,7 @@ const ServicesForHome=({groups})=> {
                                  setSelectRow(selectedrow)
                                   setActionProps(extend_action)
                                 } }
-                                itemText="Request Extension" />
+                                itemText="Extend Service" />
                               <OverflowMenuItem
                                key={details_action.key}
                                onClick={() =>

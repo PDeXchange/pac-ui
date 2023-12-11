@@ -189,7 +189,7 @@ const renderNoDataEmptyState=()=>{
               return (
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
-                  <h4>My Keys</h4>
+                  <h4><span className="NumberIcon"><strong>2</strong></span> My Keys</h4>
                 <TableContainer {...getTableContainerProps()}>
                    
                   {(rows.length>0&&<Table {...getTableProps()} style={{marginTop:"2rem"}}>
@@ -214,7 +214,7 @@ const renderNoDataEmptyState=()=>{
                         <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
                         
 
-                          <TableCell className="cds--table-column-menu">
+                          <TableCell>
                             <OverflowMenu size="sm" flipped>
                               <OverflowMenuItem
                                 onClick={() => {

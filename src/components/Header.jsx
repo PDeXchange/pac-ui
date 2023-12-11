@@ -35,22 +35,21 @@ const HeaderNav = () => {
         <>
           
           <Header>
-            <HeaderMenuButton
+          {isAdmin&& <HeaderMenuButton
               aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
               isCollapsible
               onClick={onClickSideNavExpand}
               isActive={isSideNavExpanded}
               aria-expanded={isSideNavExpanded}
-            />
-            <HeaderName href="/" prefix="">
+            />}
+            <HeaderName as={Link} to="/" prefix="">
              Power Access Cloud
             </HeaderName>
-            <HeaderNavigation>
-              
-              <HeaderMenuItem href="#">FAQ</HeaderMenuItem>
-              
-              
-            </HeaderNavigation>
+            {!isAdmin&&<HeaderNavigation>
+              <HeaderMenuItem as={Link} to="catalogs">Catalog</HeaderMenuItem>
+              <HeaderMenuItem as={Link} to="/">FAQ</HeaderMenuItem>
+              <HeaderMenuItem as={Link} to="/">Feedback</HeaderMenuItem>
+            </HeaderNavigation>}
             <HeaderGlobalBar>
               <HeaderGlobalAction
                 aria-label="Profile"
@@ -62,7 +61,7 @@ const HeaderNav = () => {
               </HeaderGlobalAction>
               {showProfile && <ProfileSection />}
             </HeaderGlobalBar>
-            <SideNav
+            {isAdmin&&<SideNav
               aria-label="Side navigation"
               expanded={isSideNavExpanded}
               onOverlayClick={onClickSideNavExpand}
@@ -82,6 +81,7 @@ const HeaderNav = () => {
                 {isAdmin && <MenuLink url="/events" label="Events" />}
               </SideNavItems>
             </SideNav>
+            }
           </Header>
         </>
       )}

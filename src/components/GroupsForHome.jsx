@@ -27,8 +27,10 @@ import UserService from "../services/UserService";
 import Notify from "./utils/Notify";
 import ExitGroup from "./PopUp/ExitGroup";
 
+import DeleteRequest from './PopUp/DeleteRequest'
 const BUTTON_REQUEST = "BUTTON_REQUEST";
 const BUTTON_DELETE = "BUTTON_DELETE";
+const BUTTON_DELETE_REQUEST="DELETE_REQUEST"
 
 const delete_action={
   key: BUTTON_DELETE,
@@ -40,6 +42,14 @@ const delete_action={
 
 const new_request={
   key: BUTTON_REQUEST,
+  label: "Request",
+  kind: "ghost",
+  standalone: true,
+  hasIconOnly: true,
+};
+
+const delete_request={
+  key: BUTTON_DELETE_REQUEST,
   label: "Request",
   kind: "ghost",
   standalone: true,
@@ -171,6 +181,14 @@ const GroupsForHome = () => {
             response={handleResponse}
           />
         )}
+        {actionProps?.key === BUTTON_DELETE_REQUEST && (
+          <DeleteRequest
+            selectRows={selectRows}
+            pagename=''
+            setActionProps={setActionProps}
+            response={handleResponse}
+          />
+        )}
       </React.Fragment>
     );
   };
@@ -213,7 +231,8 @@ const GroupsForHome = () => {
                 
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
-                  <h4>My Group
+                  
+                <h4><span className="NumberIcon"><strong>1</strong></span> My Group
                   <Tooltip align="bottom-left" size="lg" label="Groups control resource allocation by assigning the maximum vCPU and memory available to you. By default, all new users are added to the Bronze group which includes .5 vCPU and 8 GB of memory. If you require more CPU and memory, you can upgrade your group with a valid use case. You can only be a member of one group at a time.">
                     <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
                             <Information />
@@ -241,7 +260,7 @@ const GroupsForHome = () => {
                             // <TableCell key={cell.id}>{cell.value}</TableCell>
                             ((i!==3)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{(row.cells[i].value==="Active"&&"Approved")}{(row.cells[i].value==="Inactive"&&"Pending")}</TableCell>)
                           ))}
-                          <TableCell className="cds--table-column-menu">
+                          <TableCell >
                             {row.cells[3].value==="Active"&&  <OverflowMenu size="sm" flipped>
                               
                               <OverflowMenuItem 
@@ -256,7 +275,18 @@ const GroupsForHome = () => {
                                 }
                               itemText="Leave group" />
                             </OverflowMenu>}
-                          
+                            {row.cells[3].value==="Inactive"&&  <OverflowMenu size="sm" flipped>
+                              <OverflowMenuItem 
+                              key={delete_request.key}
+                              onClick={() => 
+                                {
+                                  selectRows=[];
+                                  selectRows.push(pendinggroups[0]);
+                                  setActionProps(delete_request)
+                                }
+                                }
+                              itemText="Delete request" />
+                            </OverflowMenu>}
                           </TableCell>
                         </TableRow>
                       ))}

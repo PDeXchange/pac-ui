@@ -51,18 +51,19 @@ const Dashboard = () => {
       <br />
       <Column lg={16} md={8} sm={4} className="landing-page__r2">
         <Grid>
-          <Column lg={8} md={4} sm={4}>
+          <Column lg={10} md={4} sm={4}>
             <GroupsForHome />
           </Column>
-          <Column lg={8} md={4} sm={4}>
-          <ServicesForHome groups={allGroupdata} />
-          </Column>
-        </Grid><br /><br />
-        <Grid>
-          <Column lg={8} md={4} sm={4}>
+          <Column lg={6} md={4} sm={4}>
           <KeysForHome />
           </Column>
-          <Column lg={8} md={4} sm={4}>
+          
+        </Grid><br /><br />
+        <Grid>
+        <Column lg={10} md={4} sm={4}>
+          <ServicesForHome groups={allGroupdata} />
+          </Column>
+          <Column lg={6} md={4} sm={4}>
             <QuickLinks />
           </Column>
         </Grid>

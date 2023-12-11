@@ -28,7 +28,7 @@ const DeleteRequest = ({ selectRows, setActionProps, response }) => {
     }
     response(title, message, errored)
     setActionProps("");
-    navigate("/requests");
+    navigate("/");
   };
 
   return (
