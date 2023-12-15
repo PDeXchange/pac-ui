@@ -41,6 +41,19 @@ const Catalogs = () => {
   const [memory, setMemory] = useState(0);
   const fetchData = async () => {
     let data = await getAllCatalogs();
+    
+    
+    data?.payload.sort((a, b) => {
+      let fa = a.capacity.cpu,
+        fb = b.capacity.cpu;
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
     setRows(data?.payload);
     let data2 = await allGroups();
     const result= data2.payload.filter((d)=>d.membership)
@@ -101,7 +114,7 @@ const Catalogs = () => {
         md={4}
         sm={2}
       ><Tile style={{paddingBottom:"50px", marginBottom:"50px", height:"85%"}} >
-        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Ready to deploy">
+        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Catalog ready">
 <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
 <CheckmarkFilled />
       </Button>

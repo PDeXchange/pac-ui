@@ -17,7 +17,9 @@ import Catalogs from "./Catalogs";
 import CatalogsAdmin from "./Catalogs-admin";
 import Users from "./Users";
 import Events from "./Events";
+import Keys from "./Keys"
 import { Theme } from "@carbon/react";
+import Feedback from "./Feedback";
 
 const App = () => {
   const auth = UserService.isLoggedIn();
@@ -28,6 +30,7 @@ const App = () => {
         <Routes>
         
         {!isAdmin && <Route path="/" element={<TnCRoute Component={Dashboard} />} />}
+        {!isAdmin && <Route path="/feedback" element={<TnCRoute Component={Feedback} />} />}
         {isAdmin && <Route path="/" element={<TnCRoute Component={RequestList} />} />}
 
         <Route path="/login" element={<AuthRoute Component={Login} />}/>
@@ -41,6 +44,7 @@ const App = () => {
         {isAdmin && <Route path="/request/:id" element={<TnCRoute Component={NewRequest} />} />}
         {isAdmin && <Route path="/catalogs-admin" element={<TnCRoute Component={CatalogsAdmin} />} />}
         {isAdmin && <Route path="/users" element={<TnCRoute Component={Users} />} />}
+        {isAdmin && <Route path="/keys" element={<TnCRoute Component={Keys} />} />}
         {isAdmin && <Route path="/services-admin" element={<TnCRoute Component={ServicesAdmin} />} />}
         {isAdmin && <Route path="/events" element={<TnCRoute Component={Events} />} />}
       </Routes>
@@ -50,14 +54,14 @@ const App = () => {
     window.location.href = window.location.href.replace("/login", "");
     return;
   }
-  if ((auth === false || !isAdmin ) && ["/requests", "/catalogs-admin", "/users", "/services-admin", "/events"].includes(window.location.pathname)) {
+  if ((auth === false || !isAdmin ) && ["/requests", "/catalogs-admin", "/users", "/services-admin", "/events","/keys"].includes(window.location.pathname)) {
     window.location.href = "/login";
     return;
   }
   return (
     <React.Fragment>
       <Theme theme="g90">{auth === true && <HeaderNav />} </Theme>
-      <section className={auth ? "contentSection" : ""}>
+        <section className={auth ? "contentSection" : ""}>
         <RouterClass />
       </section>
     </React.Fragment>

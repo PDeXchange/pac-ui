@@ -48,7 +48,7 @@ const HeaderNav = () => {
             {!isAdmin&&<HeaderNavigation>
               <HeaderMenuItem as={Link} to="catalogs">Catalog</HeaderMenuItem>
               <HeaderMenuItem as={Link} to="/">FAQ</HeaderMenuItem>
-              <HeaderMenuItem as={Link} to="/">Feedback</HeaderMenuItem>
+              <HeaderMenuItem as={Link} to="/feedback">Feedback</HeaderMenuItem>
             </HeaderNavigation>}
             <HeaderGlobalBar>
               <HeaderGlobalAction
@@ -76,7 +76,9 @@ const HeaderNav = () => {
                 <MenuLink url="/" label={isAdmin ? "Requests" : "Dashboard"} />
                 
                 <MenuLink url={isAdmin ? "/catalogs-admin" : "/catalogs"} label="Catalog" />
+                <MenuLink url="/feedback" label="Feedback" />
                 {isAdmin && <MenuLink url="/services-admin" label="Services" />}
+                {isAdmin && <MenuLink url="/keys" label="Keys" />}
                 {isAdmin && <MenuLink url="/users" label="Users" />}
                 {isAdmin && <MenuLink url="/events" label="Events" />}
               </SideNavItems>

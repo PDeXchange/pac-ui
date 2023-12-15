@@ -232,7 +232,7 @@ const GroupsForHome = () => {
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
                   
-                <h4><span className="NumberIcon"><strong>1</strong></span> My Group
+                <h4> My Group
                   <Tooltip align="bottom-left" size="lg" label="Groups control resource allocation by assigning the maximum vCPU and memory available to you. By default, all new users are added to the Bronze group which includes .5 vCPU and 8 GB of memory. If you require more CPU and memory, you can upgrade your group with a valid use case. You can only be a member of one group at a time.">
                     <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
                             <Information />

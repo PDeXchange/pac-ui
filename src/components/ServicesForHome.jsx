@@ -217,7 +217,7 @@ const ServicesForHome=({groups})=> {
                 <Button size="md" kind="ghost" onClick={()=> fetchServicesData()} style={{float:"right"}} >
                         <Renew size="24"/>
                       </Button>
-                      <h4><span className="NumberIcon"><strong>3</strong></span> My Services
+                      <h4> My Services
                   <Tooltip align="bottom-left" size="lg" label="Review your service details including status, expiration date, and access information. Request additional services from the catalog.">
                     <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
                             <Information />
