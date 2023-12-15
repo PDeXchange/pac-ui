@@ -1,7 +1,7 @@
 import React from "react";
 import UserService from "../services/UserService";
 import "../styles/welcome.scss";
-import graphic from '../assets/images/background.png';
+// import graphic from '../assets/images/background.png';
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -25,7 +25,7 @@ const Welcome = () => {
   return (
     <Grid className="login-page" fullWidth>
       <Column lg={10} md={4} >
-      <img src={graphic} alt="graphic" class="graphic" />
+      <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background.png`} alt="graphic" class="graphic" />
       </Column>
       <Column lg={6} md={4} sm={4} >
         <h3 className="landing-page__sub_heading">
