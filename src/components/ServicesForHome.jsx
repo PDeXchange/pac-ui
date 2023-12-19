@@ -62,7 +62,7 @@ const headers = [
   },
   {
     key: "status.access_info",
-    header: "Access Info",
+    header: "Access information",
   },
   {
     key: "action",
@@ -217,7 +217,7 @@ const ServicesForHome=({groups})=> {
                 <Button size="md" kind="ghost" onClick={()=> fetchServicesData()} style={{float:"right"}} >
                         <Renew size="24"/>
                       </Button>
-                      <h4> My Services
+                      <h4> My services
                   <Tooltip align="bottom-left" size="lg" label="Review your service details including status, expiration date, and access information. Request additional services from the catalog.">
                     <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
                             <Information />
@@ -256,7 +256,7 @@ const ServicesForHome=({groups})=> {
                                  setSelectRow(selectedrow)
                                  setActionProps(details_action)
                                } }
-                              itemText="View Details" />
+                              itemText="View details" />
                               <OverflowMenuItem
                               key={extend_action.key}
                                onClick={() =>
@@ -267,7 +267,7 @@ const ServicesForHome=({groups})=> {
                                  setSelectRow(selectedrow)
                                   setActionProps(extend_action)
                                 } }
-                                itemText="Extend Service" />
+                                itemText="Extend service" />
                               <OverflowMenuItem
                                key={details_action.key}
                                onClick={() =>
@@ -291,7 +291,7 @@ const ServicesForHome=({groups})=> {
                 {(rows.length===0 &&<div style={{backgroundColor:"#F4F4F4",padding:"1rem",marginTop:"3rem"}}>
         {(renderNoDataEmptyState()) }
         </div>)}
-        <Button onClick={()=>navigate('/catalogs')} disabled={result.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add}>
+        <Button kind="tertiary" onClick={()=>navigate('/catalogs')} disabled={result.length===0} style={{float:"right",marginTop:"1rem"}} >
                         Go to catalog
                       </Button>
                 </div>

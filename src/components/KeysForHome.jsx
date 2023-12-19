@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { allKeys } from "../services/request";
-import { MobileAdd, TrashCan } from "@carbon/icons-react";
+import { MobileAdd, TrashCan, Information } from "@carbon/icons-react";
 import { clientSearchFilter } from "../utils/Search";
 import UserService from "../services/UserService";
 import AddKey from "./PopUp/AddKey";
@@ -14,6 +14,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  Tooltip,
   DataTableSkeleton,
   OverflowMenu,
   OverflowMenuItem,
@@ -51,7 +52,7 @@ const headers = [
 
 const action={
   key: BUTTON_REQUEST,
-    label: "Add Key",
+    label: "Add key",
     kind: "ghost",
     icon: MobileAdd,
     standalone: true,
@@ -152,7 +153,7 @@ const renderNoDataEmptyState=()=>{
   return (
     <>
     <Modal
-        modalHeading="Key Details"
+        modalHeading="Key details"
         secondaryButtonText="Cancel"
         primaryButtonText="Copy"
         open={open}
@@ -189,7 +190,11 @@ const renderNoDataEmptyState=()=>{
               return (
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
-                  <h4> My Keys</h4>
+                  <h4> My keys <Tooltip align="bottom-left" size="lg" label="Placeholder text">
+                    <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+                            <Information />
+                          </Button>
+                    </Tooltip></h4>
                 <TableContainer {...getTableContainerProps()}>
                    
                   {(rows.length>0&&<Table {...getTableProps()} style={{marginTop:"2rem"}}>
@@ -223,7 +228,7 @@ const renderNoDataEmptyState=()=>{
                                   setKeyName(row.cells[0].value);
                                   setKeyValue(row.cells[1].value);
                                 }}
-                                itemText="View Details"
+                                itemText="View details"
                               />
                               
                               <OverflowMenuItem
@@ -237,7 +242,7 @@ const renderNoDataEmptyState=()=>{
                                   setActionProps(delete_action)
                                 }
                                 }
-                              itemText="Delete Key" />
+                              itemText="Delete key" />
                             </OverflowMenu>
                           </TableCell>
                         </TableRow>
@@ -251,9 +256,8 @@ const renderNoDataEmptyState=()=>{
                   </div>
                   ) }
                   
-                  <Button style={{float:"right",marginTop:"1rem",marginBottom:"1rem",}}
+                  <Button kind="tertiary" style={{float:"right",marginTop:"1rem",marginBottom:"1rem",}}
                           key={action.key}
-                          renderIcon={action.icon}
                           disabled={
                             !(selectRows.length === 1) &&
                             action.key !== BUTTON_REQUEST

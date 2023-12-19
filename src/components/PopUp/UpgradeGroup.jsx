@@ -100,19 +100,19 @@ const UpgradeGroup = ({pagename, currentGroupId, allgroupdata, setActionProps, r
                
                 {               
                 allgroupdata.map((group, index) => (
-                    <SelectItem key={group.id} value={group.id} text={`${group.name} (${group.quota.cpu} CPU, ${group.quota.memory} GB)`} />
+                    <SelectItem key={group.id} value={group.id} text={`${group.name} (${group.quota.cpu} vCPU, ${group.quota.memory} GB)`} />
                 ))} 
                 
             </Select>
           </div>
           <div className="mb-3">
             <label htmlFor="Justifcation" className="form-label">
-              Justifcation<span className="text-danger">*</span>
+              Justification<span className="text-danger">*</span>
             </label>
             <textarea
               type={"text"}
               className="form-control"
-              placeholder="Enter your Justifcation for joining the group"
+              placeholder="Enter your justification for upgrading to this group"
               name="justification"
               value={g?.justification}
               onChange={(e) => onInputChange(e)}

@@ -9,7 +9,7 @@ const ServiceDetails = ({pagename, selectRows, setActionProps }) => {
    console.log(selectRows);
   return (
     <Modal
-      modalHeading="Service Details"
+      modalHeading="Service details"
       onRequestClose={() => {
         setActionProps("");
       }}
@@ -23,16 +23,16 @@ const ServiceDetails = ({pagename, selectRows, setActionProps }) => {
 
     >
       
-      <p><strong>ID</strong>: {selectRows[0].id}</p>
-        <p><strong>Name</strong>: {selectRows[0].name}</p>
-        <p><strong>Display_name</strong>: {selectRows[0].display_name}</p>
+      {/* <p><strong>ID</strong>: {selectRows[0].id}</p>
+        <p><strong>Name</strong>: {selectRows[0].name}</p> */}
+        <p><strong>Display name</strong>: {selectRows[0].display_name}</p>
       
       <p><strong>Catalog name</strong>: {selectRows[0].catalog_name}</p>
         <p><strong>Expiry</strong>: {selectRows[0].expiry.split("T")[0]}</p>
       
         
-        <p><strong>Access Info</strong>: {selectRows[0].status.access_info==="..."?"Under process":"VM can be accessed via ExternalIP: "+selectRows[0].status.access_info+" use any SSH pub key registered to SSH into the VM"}</p>
-        {selectRows[0].status.state==="PENDING EXTENSION"&&<p><strong>Requested extend date</strong>: {selectRows[0].status.extentiondate}<br/><br/><strong>Justification for Extension</strong>: {selectRows[0].status.justification}</p>}
+        <p><strong>Access information</strong>: {selectRows[0].status.access_info==="..."?"Under process":"Access your VM at the external IP address: "+selectRows[0].status.access_info+". Use the SSH public key you registered before you deployed this service."}</p>
+        {selectRows[0].status.state==="PENDING EXTENSION"&&<p><strong>Requested extension date</strong>: {selectRows[0].status.extentiondate.split('T')[0]}<br/><br/><strong>Justification for extending</strong>: {selectRows[0].status.justification}</p>}
         
         <p><strong>Status</strong>: {selectRows[0].status.state}</p>
         <p><strong>Message</strong>: {selectRows[0].status.message}</p>

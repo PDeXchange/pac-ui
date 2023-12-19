@@ -59,7 +59,7 @@ const delete_request={
 const headers = [
   {
     key: "name",
-    header: "Groups",
+    header: "Group",
   },
   {
     key: "quota.cpu",
@@ -101,6 +101,10 @@ const GroupsForHome = () => {
     let data = [];
     let request=[];
     data = await allGroups();
+    data?.payload.map((g) => {
+      //alert( typeof g.name);
+      g.name=g.name.replace(/^./, g.name[0].toUpperCase())
+    });
     data?.payload.sort((a, b) => {
       let fa = a.quota.cpu,
         fb = b.quota.cpu;
@@ -232,7 +236,7 @@ const GroupsForHome = () => {
                 <>
                 <div style={{padding:"1rem", border: "1px solid #E4E5E6",minHeight:"22rem",overflow:"hidden"}}>
                   
-                <h4> My Group
+                <h4> My group
                   <Tooltip align="bottom-left" size="lg" label="Groups control resource allocation by assigning the maximum vCPU and memory available to you. By default, all new users are added to the Bronze group which includes .5 vCPU and 8 GB of memory. If you require more CPU and memory, you can upgrade your group with a valid use case. You can only be a member of one group at a time.">
                     <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
                             <Information />
@@ -302,7 +306,7 @@ const GroupsForHome = () => {
                    {renderNoDataEmptyState()}
                   </div>
                   ) }
-                  <Button disabled={rows.length===0} style={{float:"right",marginTop:"1rem"}} renderIcon={Add} onClick={() => {if(pendinggroups.length>0){ alert('You already have a pending request, you can not creat a new request at the moment')} else{setActionProps(new_request)}}}>
+                  <Button kind="tertiary" disabled={rows.length===0} style={{float:"right",marginTop:"1rem"}} onClick={() => {if(pendinggroups.length>0){ alert('You already have a pending request, you can not creat a new request at the moment')} else{setActionProps(new_request)}}}>
                         Upgrade
                       </Button>
                   
