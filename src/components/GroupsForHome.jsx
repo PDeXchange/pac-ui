@@ -17,8 +17,8 @@ import {
   Button,
   Tooltip
 } from "@carbon/react";
-import { MobileAdd, TrashCan, Add, Information } from "@carbon/icons-react";
-import { clientSearchFilter } from "../utils/Search";
+import { TrashCan, Information } from "@carbon/icons-react";
+
 import { flattenArrayOfObject } from "./commonUtils";
 
 import UpgradeGroup from "./PopUp/UpgradeGroup";
@@ -83,7 +83,6 @@ let selectRows = [];
 const GroupsForHome = () => {
   
   const [rows, setRows] = useState([]);
-  const [searchText, setSearchText] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [notifyKind, setNotifyKind] = useState("");
@@ -101,10 +100,9 @@ const GroupsForHome = () => {
     let data = [];
     let request=[];
     data = await allGroups();
-    data?.payload.map((g) => {
-      //alert( typeof g.name);
+    data?.payload.map((g) => 
       g.name=g.name.replace(/^./, g.name[0].toUpperCase())
-    });
+    );
     data?.payload.sort((a, b) => {
       let fa = a.quota.cpu,
         fb = b.quota.cpu;
@@ -124,7 +122,7 @@ const GroupsForHome = () => {
 
     //console.log(data.payload);
     newResult.forEach((p)=>{
-     var pendingItem=data.payload.filter((d)=>d.name===p.group.group)
+     var pendingItem=data.payload.filter((d)=>d.name.toLowerCase()===p.group.group.toLowerCase())
      
      result.push(pendingItem[0])
     })
@@ -146,10 +144,8 @@ const GroupsForHome = () => {
     
   }, [actionProps]); 
 
-  const displayData = flattenArrayOfObject(
-    clientSearchFilter(searchText, rows)
-  );
-  
+  const displayData = flattenArrayOfObject(rows);
+ 
   
   const renderSkeleton = () => {
     const headerLabels = filteredHeaders?.map((x) => x?.header);

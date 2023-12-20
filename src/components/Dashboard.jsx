@@ -36,18 +36,12 @@ const Dashboard = () => {
   
   return (
     <Grid className="landing-page" fullWidth>
-      <Column
-        lg={16}
-        md={8}
-        sm={4}
-        className="landing-page__banner banner-full"
-      >
-        <Grid className="about-page" fullWidth>
-          <h1 className="landing-page__sub_heading banner-header">
-            Dashboard
-          </h1>
-        </Grid>
-      </Column>
+      <div className="page-banner">
+                      <h1 className="landing-page__sub_heading banner-header">
+                      Dashboard
+                      </h1>
+                      <p className="banner-text">Welcome to your Power Access Cloud dashboard. Here, you’ll find information about your group, services, SSH keys, and more. Some of the tasks you can complete from the dashboard include getting information about the resource quota for your approved group, requesting a group upgrade, leaving a group, or tracking group status; reviewing your deployed services, getting service access information, extending a service, deleting a service, or going to the catalog to order additional services;  viewing your SSH Key details, adding a new key, or deleting a key</p>
+                  </div>
       <br />
       <Column lg={16} md={8} sm={4} className="landing-page__r2">
         <Grid>
@@ -55,7 +49,7 @@ const Dashboard = () => {
             <GroupsForHome />
           </Column>
           <Column lg={6} md={4} sm={4}>
-          <KeysForHome />
+          <QuickLinks />
           </Column>
           
         </Grid><br /><br />
@@ -64,7 +58,7 @@ const Dashboard = () => {
           <ServicesForHome groups={allGroupdata} />
           </Column>
           <Column lg={6} md={4} sm={4}>
-            <QuickLinks />
+          <KeysForHome />
           </Column>
         </Grid>
         <br />

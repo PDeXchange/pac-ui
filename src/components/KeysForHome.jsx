@@ -70,7 +70,6 @@ let selectRows = [];
 
 const KeysForHome = () => {
   const [rows, setRows] = useState([]);
-  const [searchText, setSearchText] = useState("");
   const [errorTitle, setErrorTitle] = useState("");
   const [notifyKind, setNotifyKind] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -103,7 +102,7 @@ const KeysForHome = () => {
     fetchData();
   }, [isAdmin, headers, actionProps]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const displayData = clientSearchFilter(searchText, rows);
+  const displayData =rows;
 
   const renderSkeleton = () => {
     const headerLabels = filteredHeaders?.map((x) => x?.header);
