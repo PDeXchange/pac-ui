@@ -31,7 +31,7 @@ const ServiceDetails = ({pagename, selectRows, setActionProps }) => {
         <p><strong>Expiry</strong>: {selectRows[0].expiry.split("T")[0]}</p>
       
         
-        <p><strong>Access information</strong>: {selectRows[0].status.access_info==="..."?"Under process":"Access your VM at the external IP address: "+selectRows[0].status.access_info+". Use the SSH public key you registered before you deployed this service."}</p>
+        <p><strong>Access information</strong>: {selectRows[0].status.access_info==="..."?"Under process":"Access your VM at the external IP address: "+selectRows[0].status.access_info+". Use the SSH public key you added before you deployed this service."}</p>
         {selectRows[0].status.state==="PENDING EXTENSION"&&<p><strong>Requested extension date</strong>: {selectRows[0].status.extentiondate.split('T')[0]}<br/><br/><strong>Justification for extending</strong>: {selectRows[0].status.justification}</p>}
         
         <p><strong>Status</strong>: {selectRows[0].status.state}</p>

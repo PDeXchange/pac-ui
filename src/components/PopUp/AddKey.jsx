@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createKeys } from "../../services/request";
-import { Modal,InlineNotification } from "@carbon/react";
+import { Modal,InlineNotification, Tooltip, Button } from "@carbon/react";
+import { Information } from "@carbon/icons-react";
 const AddKey = ({ pagename,setActionProps, response }) => {
   let navigate = useNavigate();
   const [g, setGroup] = useState({
@@ -91,7 +92,7 @@ const AddKey = ({ pagename,setActionProps, response }) => {
         onSubmit();
       }}
       open={true}
-      primaryButtonText={"Submit"}
+      primaryButtonText={"Add"}
       secondaryButtonText={"Cancel"}
     >
       <div>
@@ -102,7 +103,7 @@ const AddKey = ({ pagename,setActionProps, response }) => {
           <input
             type={"text"}
             className="form-control"
-            placeholder="Enter the ssh key name..."
+            placeholder="Enter a name for this key"
             name="name"
             value={g?.name}
             onChange={(e) => {
@@ -126,12 +127,16 @@ const AddKey = ({ pagename,setActionProps, response }) => {
         </div>
         <div className="mb-3">
           <label htmlFor="Justifcation" className="form-label">
-            Public key<span className="text-danger">*</span>
+            Key<span className="text-danger">*</span><Tooltip align="bottom-left" size="sm" label="Placeholder text">
+                    <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+                            <Information size="14"/>
+                          </Button>
+                    </Tooltip>
           </label>
           <textarea
             type={"text"}
             className="form-control"
-            placeholder="Enter the public key..."
+            placeholder="Enter the public key"
             name="content"
             value={g?.justification}
             onChange={(e) => {

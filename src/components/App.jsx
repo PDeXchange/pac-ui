@@ -19,7 +19,6 @@ import Users from "./Users";
 import Events from "./Events";
 import Keys from "./Keys"
 import { Theme } from "@carbon/react";
-import Feedback from "./Feedback";
 
 const App = () => {
   const auth = UserService.isLoggedIn();
@@ -30,7 +29,7 @@ const App = () => {
         <Routes>
         
         {!isAdmin && <Route path="/" element={<TnCRoute Component={Dashboard} />} />}
-        {!isAdmin && <Route path="/feedback" element={<TnCRoute Component={Feedback} />} />}
+        
         {isAdmin && <Route path="/" element={<TnCRoute Component={RequestList} />} />}
 
         <Route path="/login" element={<AuthRoute Component={Login} />}/>

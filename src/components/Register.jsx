@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import "../styles/registration.scss";
-// import ls from '../assets/images/background.png'; 
 import {
   Button,
   Grid,
@@ -48,7 +47,7 @@ const Register = () => {
             
           </Column>
           <Column lg={6} md={4} sm={4} >
-            <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background.png`} alt="ls" class="ls" />
+            <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background-new.jpg`} alt="ls" class="ls" />
           </Column>
        
         <Column lg={16} md={8} sm={4} className="tnc" >
@@ -56,7 +55,7 @@ const Register = () => {
 <p>Briefly describe how you plan to use this service. Provide as much detail as possible and include a link to your project if you have one.
 </p>
 <p>
-<strong>Note</strong>: By default, all new users are assigned to the Bronze group, which includes .25 vCPU, 4 GB of memory. <strong>PAC Groups</strong> control resource allocation by assigning the maximum CPU and memory available to your VM. With a valid use case, you can request additional resources from the PAC dashboard after your initial registration is approved.
+<strong>Note</strong>: By default, all new users are assigned to the Bronze group, which includes .5 vCPU, 8 GB of memory. <strong>PAC Groups</strong> control resource allocation by assigning the maximum CPU and memory available to your VM. With a valid use case, you can request additional resources from the PAC dashboard after your initial registration is approved.
 
 </p>
        

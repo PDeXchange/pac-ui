@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
   const [primaryButtonDisabled, setPrimaryButtonDisabled] = useState(false);
-  const [primaryButtonText, setPrimaryButtonText] = useState("Exit");
+  const [primaryButtonText, setPrimaryButtonText] = useState("Submit");
   const id = selectRows[0]?.id;
   let navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
         message = payload.response.data.error;
         errored = true;
       } else {
-        title = "The exit request from the group was successful, track the progress under request section.";
+        title = "Your request to leave the group was successfully submitted.";
       }
     } catch (error) {
       console.log(error);
@@ -43,7 +43,6 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
   return (
     <Modal
       modalHeading="Leave Group"
-      danger={true}
       onRequestClose={() => {
         setActionProps("");
       }}
@@ -59,21 +58,17 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
       secondaryButtonText={"Cancel"}
     >
       <div>
-        <div className="mb-3">
-          <h4>Please share why you are leaving this group</h4>
-        </div>
+       
         <div className="mb-3">
           <label htmlFor="Justifcation" className="form-label">
-            Justifcation<span className="text-danger">*</span>
+          Please share why you are leaving this group
           </label>
           <textarea
             type={"text"}
             className="form-control"
-            placeholder="Enter your justifcation to leave from this group"
             name="justification"
             value={g?.justification}
             onChange={(e) => onInputChange(e)}
-            required
           />
         </div>
       </div>

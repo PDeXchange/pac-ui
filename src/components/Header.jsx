@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { UserAvatar } from "@carbon/icons-react";
+import Feedback from "./PopUp/Feedback";
+
 import {
   Header,
   HeaderContainer,
@@ -16,7 +18,7 @@ import {
 } from "@carbon/react";
 import ProfileSection from "./Profile";
 import UserService from "../services/UserService";
-
+const BUTTON_FEEDBACK = "BUTTON_FEEDBACK";
 const MenuLink = (props) => {
   const { url, label } = props;
   return (
@@ -29,11 +31,28 @@ const MenuLink = (props) => {
 const HeaderNav = () => {
   const isAdmin = UserService.isAdminUser();
   const [showProfile, setShowProfile] = useState(false);
+  const [actionProps, setActionProps] = useState("");
+  const action={
+    key: BUTTON_FEEDBACK,
+      label: "Feedback"
+  }
+  const renderActionModals = () => {
+    return (
+      <React.Fragment>
+        {actionProps?.key === BUTTON_FEEDBACK && (
+          <Feedback
+            
+            setActionProps={setActionProps}
+            
+          />
+        )}
+        </React.Fragment>)}
   return (
     <HeaderContainer
+    
       render={({ isSideNavExpanded, onClickSideNavExpand }) => (
         <>
-          
+           {renderActionModals()}
           <Header>
           {isAdmin&& <HeaderMenuButton
               aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
@@ -48,7 +67,7 @@ const HeaderNav = () => {
             {!isAdmin&&<HeaderNavigation>
               <HeaderMenuItem as={Link} to="catalogs">Catalog</HeaderMenuItem>
               <HeaderMenuItem as={Link} to="/">FAQ</HeaderMenuItem>
-              <HeaderMenuItem as={Link} to="/feedback">Feedback</HeaderMenuItem>
+              <HeaderMenuItem onClick={() => setActionProps(action)}>Feedback</HeaderMenuItem>
             </HeaderNavigation>}
             <HeaderGlobalBar>
               <HeaderGlobalAction

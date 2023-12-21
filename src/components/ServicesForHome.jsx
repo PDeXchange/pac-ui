@@ -242,7 +242,19 @@ const ServicesForHome=({groups})=> {
                         <TableRow key={row.id}>
                           {row.cells.map((cell,i) => (cell.value &&
                             // <TableCell key={cell.id}>{cell.value}</TableCell>
-                            ((i!==2)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{row.cells[i].value==="PENDING EXTENSION"&&"Pending Extension"} {(row.cells[i].value==="CREATED"&&<>Active <CheckmarkFilled /></>)}{(row.cells[i].value==="NEW"&&<>Pending <Pending /></>)}{(row.cells[i].value==="IN_PROGRESS"&&<>Deploying <InProgress /></>)}</TableCell>)
+                            ((i!==2)?<TableCell key={cell.id}>{cell.value}</TableCell>:<TableCell key={cell.id}>{row.cells[i].value==="PENDING EXTENSION"&&<><svg  x="0px" y="0px"
+                            viewBox="0 0 32 32"  width="18px" height="18px" fill="#FA4D56">
+                         <path d="M28,6c0-1.1-0.9-2-2-2h-4V2h-2v2h-8V2h-2v2H6C4.9,4,4,4.9,4,6v20c0,1.1,0.9,2,2,2h19v-2H6V6h4v2h2V6h8v2h2V6h4v16h2V6z"/>
+                         <g>
+                           <polygon points="24.9,23.9 23.5,22.5 22.1,23.9 23.5,25.3 24.9,26.7 26.3,28.1 27.7,26.7 26.3,25.3 	"/>
+                           <polygon points="23.5,28.1 22.1,29.5 23.5,30.9 24.9,29.5 26.3,28.1 27.7,26.7 26.3,25.3 24.9,26.7 	"/>
+                         </g>
+                         <g>
+                           <circle cx="10.3" cy="17" r="2"/>
+                           <circle cx="22.3" cy="17" r="2"/>
+                           <circle cx="16.3" cy="17" r="2"/>
+                         </g>
+                         </svg> Pending Extension</>} {(row.cells[i].value==="CREATED"&&<> <CheckmarkFilled  style={{fill:"#24A148"}}/> Active</>)}{(row.cells[i].value==="NEW"&&<> <Pending style={{fill: "#FA4D56"}}/> Pending</>)}{(row.cells[i].value==="IN_PROGRESS"&&<> <InProgress style={{fill: "#F1C21B"}} /> Deploying</>)}</TableCell>)
                           ))}
                           <TableCell >
                             <OverflowMenu size="sm" flipped>
@@ -257,7 +269,7 @@ const ServicesForHome=({groups})=> {
                                  setActionProps(details_action)
                                } }
                               itemText="View details" />
-                              <OverflowMenuItem
+                              {row.cells[2].value!=="PENDING EXTENSION" && <OverflowMenuItem
                               key={extend_action.key}
                                onClick={() =>
                                 {
@@ -268,6 +280,7 @@ const ServicesForHome=({groups})=> {
                                   setActionProps(extend_action)
                                 } }
                                 itemText="Extend service" />
+                              }
                               <OverflowMenuItem
                                key={details_action.key}
                                onClick={() =>

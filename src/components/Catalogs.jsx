@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Column } from "@carbon/react";
 import { allGroups } from "../services/request";
+import AddKey from "./PopUp/AddKey";
 import "../styles/common.scss";
 import {
   Button,
@@ -8,7 +9,7 @@ import {
   InlineNotification,
   Tooltip
 } from "@carbon/react";
-import { MobileAdd, Information, CheckmarkFilled} from "@carbon/icons-react";
+import { MobileAdd, Information, CheckmarkFilled, CloseFilled} from "@carbon/icons-react";
 import { getAllCatalogs } from "../services/request";
 import DeployCatalog from "./PopUp/DeployCatalog";
 
@@ -19,7 +20,7 @@ import "../styles/registration.scss";
 import { Navigate } from "react-router-dom";
 
 const BUTTON_REQUEST = "BUTTON_REQUEST";
-
+const BUTTON_ADD= "BUTTON_ADD";
 const deploy=  {
     key: BUTTON_REQUEST,
     label: "Deploy",
@@ -62,6 +63,14 @@ const Catalogs = () => {
     setMemory(result[0].quota.memory);
     
   };
+  const action={
+    key: BUTTON_ADD,
+      label: "Add key",
+      kind: "ghost",
+      icon: MobileAdd,
+      standalone: true,
+      hasIconOnly: true,
+  }
   const handleResponse = (title, message, errored) => {
     setTitle(title);
     setMessage(message);
@@ -73,6 +82,13 @@ const Catalogs = () => {
   const renderActionModals = () => {
     return (
       <React.Fragment>
+        {actionProps?.key === BUTTON_ADD && (
+          <AddKey
+            pagename=''
+            setActionProps={setActionProps}
+            response={handleResponse}
+          />
+        )}
         {actionProps?.key === BUTTON_REQUEST && (
           <DeployCatalog
             selectRows={id}
@@ -90,7 +106,7 @@ const Catalogs = () => {
                       <h1 className="landing-page__sub_heading banner-header">
                       Catalog
                       </h1>
-                      <p className="banner-text">Explore the catalog of Power Access Cloud services and select the one that best suits your project needs. Note: You must <a href="/">add a SSH key</a> before deploying a service.</p>
+                      <p className="banner-text">Explore the catalog of Power Access Cloud services and select the one that best suits your project needs. Note: You must <a style={{color:"blue", textDecoration:"underline", cursor:"pointer"}} onClick={() => setActionProps(action)}>add a SSH key</a> before deploying a service.</p>
                   </div>
                   </Grid>
     
@@ -113,10 +129,15 @@ const Catalogs = () => {
         lg={4}
         md={4}
         sm={2}
-      ><Tile style={{paddingBottom:"50px", marginBottom:"50px", height:"85%"}} >
-        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Catalog ready">
+      ><Tile style={{paddingBottom:"50px", marginBottom:"50px", height:"85%", border:"1px grey solid"}} >
+        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Service ready">
 <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
-<CheckmarkFilled />
+<CheckmarkFilled  style={{fill:"#24A148"}} />
+      </Button>
+</Tooltip>}
+{!(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Service not ready">
+<Button className="sb-tooltip-trigger" kind="ghost" size="sm">
+<CloseFilled style={{fill:"#FA4D56"}} />
       </Button>
 </Tooltip>}
         <img src={row.image_thumbnail_reference} width="15%" height="auto" alt="centos" /><br/>
@@ -124,8 +145,8 @@ const Catalogs = () => {
       
 vCPU: {row.capacity.cpu}<br/>
 Memory: {row.capacity.memory} GB<br/><br/>
-{row.description}
-<br /><br />
+{/* {row.description}
+<br /><br /> */}
 <span style={{float:"right"}} >
 <Button  size="sm" kind="tertiary" disabled={(row.capacity.cpu>=cpu)||(row.capacity.memory>=memory)} onClick={() => {setId(row); setActionProps(deploy)}}>Deploy</Button>
 {((row.capacity.cpu>=cpu)||(row.capacity.memory>=memory))&&<Tooltip align="top" label="You do not have enough resources available to deploy this service. Select a different service or upgrade your group to proceed.">

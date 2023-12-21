@@ -77,12 +77,15 @@ const ServiceExtend = ({ pagename, selectRows, setActionProps, response }) => {
           <input
             type={"text"}
             className="form-control"
-            placeholder="Justification to extend the expiry for the sevice"
+            placeholder="Enter your justification for extending the service."
             name="justification"
             value={justification}
             onChange={(e) => setJustification(e.target.value)}
           />
         </div>
+        <label htmlFor="Name" className="form-label">
+            Select date<span className="text-danger">*</span>
+          </label>
         <DatePicker
           allowInput={true}
           locale="en"

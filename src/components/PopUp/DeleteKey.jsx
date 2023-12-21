@@ -32,7 +32,7 @@ const DeleteKey = ({ selectRows, pagename, setActionProps, response }) => {
 
   return (
     <Modal
-      modalHeading="Exit request"
+      modalHeading="Delete key"
       danger={true}
       onRequestClose={() => {
         setActionProps("");
@@ -46,7 +46,7 @@ const DeleteKey = ({ selectRows, pagename, setActionProps, response }) => {
     >
       <div>
         <div className="mb-3">
-          <h4>Are you sure want to delete this key!</h4>
+          <h4>Are you sure you want to delete this key?</h4>
         </div>
       </div>
     </Modal>
