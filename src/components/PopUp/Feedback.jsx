@@ -1,6 +1,7 @@
 // import axios from "axios";
 import React, { useState } from "react";
 import { Modal,Tooltip, Button } from "@carbon/react";
+import { Theme } from "@carbon/react";
 import { FaceNeutral, FaceDissatisfied, FaceSatisfied , FaceNeutralFilled, FaceDissatisfiedFilled, FaceSatisfiedFilled } from "@carbon/icons-react";
 const Feedback = ({ setActionProps }) => {
   const [feedbackText,setFeedbackText]=useState("");
@@ -11,6 +12,7 @@ alert(feedbackText + " "+ feedbackRating)
      };
  
   return (
+    <Theme theme="g10">
     <Modal
       modalHeading="Please provide your feedback"
       onRequestClose={() => {
@@ -61,6 +63,7 @@ alert(feedbackText + " "+ feedbackRating)
         </div>
       </div>
     </Modal>
+    </Theme>
   );
 }
 export default Feedback;
