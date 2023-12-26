@@ -59,8 +59,8 @@ const Catalogs = () => {
     let data2 = await allGroups();
     const result= data2.payload.filter((d)=>d.membership)
     //alert(result[0].quota.cpu+ " "+ result[0].quota.memory);
-    setCPU(result[0].quota.cpu);
-    setMemory(result[0].quota.memory);
+    setCPU(result[0]?.quota.cpu);
+    setMemory(result[0]?.quota.memory);
     
   };
   const action={

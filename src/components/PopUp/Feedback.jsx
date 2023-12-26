@@ -31,18 +31,18 @@ alert(feedbackText + " "+ feedbackRating)
             Rate your experience:
           </label>
           <div className="feedback">
-<div onClick={() => setFeedbackRating("Negative") } className={`${feedbackRating==="Negative" ? "ratingSelected" : "unselected"}`}>
-    <span>Negative</span> <br/>
-    {feedbackRating==="Negative"? <FaceDissatisfiedFilled size="50" style={{fill:"#333"}}/>:<FaceDissatisfied size="50"/>}
+<div onClick={() => setFeedbackRating("Negative") } style={{backgroundColor:"#F4BAAD"}} className={`${feedbackRating==="Negative" ? "ratingSelected" : "unselected"}`}>
+    <div style={{marginBottom:"5px"}}>Negative</div> 
+    {feedbackRating==="Negative"? <FaceDissatisfiedFilled size="50" style={{fill:"red"}}/>:<FaceDissatisfied style={{fill:"rgb(90, 90, 90)"}} size="50"/>}
 
 </div>
-<div  onClick={() => setFeedbackRating("Neutral") } className={`${feedbackRating==="Neutral" ? "ratingSelected" : "unselected"}`}>
-    <span>Neutral</span> <br/>
-    {feedbackRating==="Neutral"? <FaceNeutralFilled size="50" style={{fill:"#333"}}/>:<FaceNeutral size="50"/>}
+<div  onClick={() => setFeedbackRating("Neutral") } style={{backgroundColor:"#FAFADF"}} className={`${feedbackRating==="Neutral" ? "ratingSelected" : "unselected"}`}>
+    <div style={{marginBottom:"5px"}}>Neutral</div> 
+    {feedbackRating==="Neutral"? <FaceNeutralFilled size="50" style={{fill:"#F4EE1F"}}/>:<FaceNeutral style={{fill:"rgb(90, 90, 90)"}} size="50"/>}
 </div>
-<div  onClick={() => setFeedbackRating("Positive") } className={`${feedbackRating==="Positive" ? "ratingSelected" : "unselected"}`}>
-<span>Positive</span> <br/>
-{feedbackRating==="Positive"? <FaceSatisfiedFilled size="50" style={{fill:"#333"}}/>:<FaceSatisfied size="50"/>}
+<div  onClick={() => setFeedbackRating("Positive") } style={{backgroundColor:"#CEF5CB"}} className={`${feedbackRating==="Positive" ? "ratingSelected" : "unselected"}`}>
+<div style={{marginBottom:"5px"}}>Positive</div> 
+{feedbackRating==="Positive"? <FaceSatisfiedFilled size="50" style={{fill:"green"}}/>:<FaceSatisfied style={{fill:"rgb(90, 90, 90)"}} size="50"/>}
 </div>
           </div>
           </div>

@@ -35,7 +35,7 @@ p {
 .unselected {
   flex-grow: 1;
   width: 33%;
-  height: 6.5rem;
+  height: 6.8rem;
   border: 1px #eee solid;
   text-align: center;
   padding-top:10px
@@ -44,16 +44,16 @@ p {
   background-color: #bbb;
 }
 .ratingSelected{
-  border: 2px solid #333;
+  border: 2px solid rgb(132, 132, 132);
   background-color: #aaa;
   flex-grow: 1;
   width: 33%;
-  height: 6.5rem;
+  height: 6.8rem;
   text-align: center;
   padding-top:10px
 }
 
-.feedback>div>span {
+.feedback>div>div {
   font-size: 14px;
 }
 @media (max-width: 1250px) {
