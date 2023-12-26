@@ -9,7 +9,7 @@ import {
   InlineNotification,
   Tooltip
 } from "@carbon/react";
-import { MobileAdd, Information, CheckmarkFilled, CloseFilled} from "@carbon/icons-react";
+import { MobileAdd, Information, CheckmarkFilled, WarningFilled} from "@carbon/icons-react";
 import { getAllCatalogs } from "../services/request";
 import DeployCatalog from "./PopUp/DeployCatalog";
 
@@ -59,8 +59,11 @@ const Catalogs = () => {
     let data2 = await allGroups();
     const result= data2.payload.filter((d)=>d.membership)
     //alert(result[0].quota.cpu+ " "+ result[0].quota.memory);
-    setCPU(result[0]?.quota.cpu);
-    setMemory(result[0]?.quota.memory);
+    
+    if(result.length>0){
+      setCPU(result[0]?.quota.cpu);
+      setMemory(result[0]?.quota.memory);
+    }
     
   };
   const action={
@@ -137,7 +140,7 @@ const Catalogs = () => {
 </Tooltip>}
 {!(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Service not ready">
 <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
-<CloseFilled style={{fill:"#FA4D56"}} />
+<WarningFilled style={{fill:"#FA4D56"}} />
       </Button>
 </Tooltip>}
         <img src={row.image_thumbnail_reference} width="15%" height="auto" alt="centos" /><br/>
