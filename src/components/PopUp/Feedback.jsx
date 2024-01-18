@@ -9,8 +9,8 @@ const Feedback = ({ setActionProps }) => {
 
   const onSubmit = async () => {
     //alert(feedbackText + " "+ feedbackRating)
-    window.location.href = `mailto:pamudul1@in.ibm.com?subject=PAC feedback&body=rating:${feedbackRating}%0D%0Afeedback: ${feedbackText}`;
-
+    window.location.href = `mailto:PowerACL@ibm.com?bcc=pamudul1@in.ibm.com,nsharatc@in.ibm.com,lhalkire@us.ibm.com&subject=PAC feedback&body=Rating:${feedbackRating}%0D%0AFeedback: ${feedbackText}`;
+    setActionProps("")
      };
  
   return (
