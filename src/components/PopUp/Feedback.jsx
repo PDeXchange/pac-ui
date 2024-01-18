@@ -8,7 +8,9 @@ const Feedback = ({ setActionProps }) => {
   const [feedbackRating,setFeedbackRating]=useState("Positive");
 
   const onSubmit = async () => {
-alert(feedbackText + " "+ feedbackRating)
+    //alert(feedbackText + " "+ feedbackRating)
+    window.location.href = `mailto:pamudul1@in.ibm.com?subject=PAC feedback&body=rating:${feedbackRating}%0D%0Afeedback: ${feedbackText}`;
+
      };
  
   return (
