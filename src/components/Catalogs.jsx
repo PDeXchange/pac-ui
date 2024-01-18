@@ -133,12 +133,12 @@ const Catalogs = () => {
         md={4}
         sm={2}
       ><Tile style={{paddingBottom:"50px", marginBottom:"50px", height:"85%", border:"1px grey solid"}} >
-        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Service ready">
+        {(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Ready">
 <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
 <CheckmarkFilled  style={{fill:"#24A148"}} />
       </Button>
 </Tooltip>}
-{!(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Service not ready">
+{!(row.status.ready)&&<Tooltip align="top" style={{float:"right"}} label="Not ready">
 <Button className="sb-tooltip-trigger" kind="ghost" size="sm">
 <WarningFilled style={{fill:"#FA4D56"}} />
       </Button>
