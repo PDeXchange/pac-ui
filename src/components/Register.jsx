@@ -37,7 +37,7 @@ const Register = () => {
   return (
 
       <Grid fullWidth >
-       <Column lg={10} md={4} sm={4} class="info">
+       <Column lg={10} md={4} sm={4} className="info">
             <h1 className="landing-page__heading banner-heading">
               Power Access Cloud
             </h1>
@@ -47,7 +47,7 @@ const Register = () => {
             
           </Column>
           <Column lg={6} md={4} sm={4} >
-            <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background-new.jpg`} alt="ls" class="ls" />
+            <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background-new.jpg`} alt="ls" className="ls" />
           </Column>
        
         <Column lg={16} md={8} sm={4} className="tnc" >
@@ -63,10 +63,12 @@ const Register = () => {
 </Column>
        
         <Column lg={16} md={8} sm={4} >
-          <p class="text">Read and accept the Power Access Cloud usage terms and conditions and then click <strong>Submit</strong> to log into the PAC dashboard with your IBMid or GitHub account. You will be notified within 2 business days at the email you provide when your request is approved. You can also check status directly from the dashboard.
+          <p className="text">Read and accept the Power Access Cloud usage terms and conditions and then click <strong>Submit</strong> to log into the PAC dashboard with your IBMid or GitHub account. You will be notified within 2 business days at the email you provide when your request is approved. You can also check status directly from the dashboard.
 </p>
-<span><span class="cb"><Checkbox lg={1} md={1} sm={1} id="tnc_cb" disabled checked={tnc_acc} /></span><span>  I have read and accept the <a class="hyperlink" onClick={() => setOpen(true)}>Power Access Cloud terms and conditions</a>.</span></span>
-<Modal size="lg" 
+<span><span className="cb"><Checkbox labelText="" lg={1} md={1} sm={1} id="tnc_cb" disabled checked={tnc_acc} /></span><span>  I have read and accept the <a className="hyperlink" onClick={() => setOpen(true)}>Power Access Cloud terms and conditions</a>.</span></span>
+<Modal 
+aria-label=""
+size="lg" 
       open={open} 
       onRequestClose={() => {setTnc_acc(false); setOpen(false)}} 
       hasScrollingContent 
@@ -80,9 +82,9 @@ const Register = () => {
 </Modal>
           
 <br/><br/>
-        <div class="last"><Button  kind="tertiary" onClick={() => {
+        <div className="last"><Button  kind="tertiary" onClick={() => {
            setJust('');
-          }}>Clear</Button>  <Button disabled={!(tnc_acc && (just!=''))} kind="primary" onClick={async () => {
+          }}>Clear</Button>  <Button disabled={!(tnc_acc && (just!==''))} kind="primary" onClick={async () => {
             sessionStorage.setItem("Justification", just);
            sessionStorage.setItem("TnC_acceptance", tnc_acc);
            navigate("/dashboard")

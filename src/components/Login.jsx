@@ -24,7 +24,7 @@ const Welcome = () => {
   return (
     <Grid className="login-page" fullWidth>
       <Column lg={10} md={4} >
-      <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background-new.jpg`} alt="graphic" class="graphic" />
+      <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background-new.jpg`} alt="graphic" className="graphic" />
       </Column>
       <Column lg={6} md={4} sm={4} >
         <h3 className="landing-page__sub_heading">

@@ -1,6 +1,6 @@
 // import axios from "axios";
 import React, { useState } from "react";
-import { Modal,Tooltip, Button } from "@carbon/react";
+import { Modal } from "@carbon/react";
 import { Theme } from "@carbon/react";
 import { FaceNeutral, FaceDissatisfied, FaceSatisfied , FaceNeutralFilled, FaceDissatisfiedFilled, FaceSatisfiedFilled } from "@carbon/icons-react";
 const Feedback = ({ setActionProps }) => {

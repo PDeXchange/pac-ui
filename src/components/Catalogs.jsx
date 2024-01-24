@@ -17,7 +17,6 @@ import UserService from "../services/UserService";
 import QuotaWarning from "./PopUp/QuotaWarning";
 import Notify from "./utils/Notify";
 import "../styles/registration.scss";
-import { Navigate } from "react-router-dom";
 
 const BUTTON_REQUEST = "BUTTON_REQUEST";
 const BUTTON_ADD= "BUTTON_ADD";
@@ -28,10 +27,9 @@ const deploy=  {
     icon: MobileAdd,
     standalone: true
   };
-let selectRows = [];
+let lc=true;
 const Catalogs = () => {
-  
-  const isAdmin = UserService.isAdminUser();
+
   const [rows, setRows] = useState([]);
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
@@ -115,7 +113,7 @@ const Catalogs = () => {
     
       <p style={{marginLeft: "1rem"}}>Viewing {rows.length} item(s)</p>
       <InlineNotification style={{margin: "0 0 2rem 1rem"}}
-      lowContrast="true"
+      lowContrast={lc}
                         kind="info"
                         title="Note"
                         subtitle="Depending on your group access, not all catalog items will be available to you. If you need resources that exceed your group quotas, consider upgrading to a new group."
@@ -127,8 +125,10 @@ const Catalogs = () => {
           <QuotaWarning />
           <Grid className="landing-page" fullWidth>
           {renderActionModals()}
+          
       {rows.map((row) => (
-    <Column
+        
+    <Column key={row.id}
         lg={4}
         md={4}
         sm={2}
