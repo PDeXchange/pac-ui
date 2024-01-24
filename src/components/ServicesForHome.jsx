@@ -18,7 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { flattenArrayOfObject } from "./commonUtils";
 import UserService from "../services/UserService";
-import { CheckmarkFilled,Pending,InProgress, Information, Renew } from "@carbon/icons-react";
+import { CheckmarkFilled,Pending,InProgress, Information, Renew,ErrorFilled } from "@carbon/icons-react";
 import DeleteService from "./PopUp/DeleteService";
 import ServiceExtend from "./PopUp/ServiceExtend";
 import ServiceDetails from './PopUp/ServiceDetails';
@@ -87,11 +87,13 @@ const ServicesForHome=({groups})=> {
     let data = await getServices();
     let request= await allRequests();
     const newResult = request.payload.filter((d)=>d.type==='SERVICE_EXPIRY'&& d.state==="NEW");
-
+    
     newResult.forEach((result)=>{
       
       data?.payload.forEach((item)=>{
-        if(item.name===result.service.name){
+         
+         
+        if(item.name===result.service.name && item.status.state!=="EXPIRED"){
           item.status.state="PENDING EXTENSION"
           item.status.extentiondate=result.service.expiry
           item.status.justification=result.justification
@@ -99,7 +101,6 @@ const ServicesForHome=({groups})=> {
       })
     })
     
-    console.log(data.payload);
     data.payload.map((i)=>{
       if(i.status.access_info===""){
         i.status.access_info="..."
@@ -108,7 +109,6 @@ const ServicesForHome=({groups})=> {
         var end=i.status.access_info.indexOf("use any ")
         i.status.access_info= i.status.access_info.slice(begining+12,end)
       }
-      
     })
     setServicesRows(data?.payload);
     setLoading(false);
@@ -254,7 +254,7 @@ const ServicesForHome=({groups})=> {
                            <circle cx="22.3" cy="17" r="2"/>
                            <circle cx="16.3" cy="17" r="2"/>
                          </g>
-                         </svg> Pending Extension</>} {(row.cells[i].value==="CREATED"&&<> <CheckmarkFilled  style={{fill:"#24A148"}}/> Active</>)}{(row.cells[i].value==="NEW"&&<> <Pending style={{fill: "#FA4D56"}}/> Pending</>)}{(row.cells[i].value==="IN_PROGRESS"&&<> <InProgress style={{fill: "#F1C21B"}} /> Deploying</>)}</TableCell>)
+                         </svg> Pending Extension</>} {(row.cells[i].value==="CREATED"&&<> <CheckmarkFilled  style={{fill:"#24A148"}}/> Active</>)}{(row.cells[i].value==="NEW"&&<> <Pending style={{fill: "#FA4D56"}}/> Pending</>)}{(row.cells[i].value==="IN_PROGRESS"&&<> <InProgress style={{fill: "#F1C21B"}} /> Deploying</>)}{(row.cells[i].value==="EXPIRED"&&<> <ErrorFilled style={{fill: "#FA4D56"}} /> Expired</>)}</TableCell>)
                           ))}
                           <TableCell >
                             <OverflowMenu size="sm" flipped>
@@ -269,7 +269,7 @@ const ServicesForHome=({groups})=> {
                                  setActionProps(details_action)
                                } }
                               itemText="View details" />
-                              {row.cells[2].value!=="PENDING EXTENSION" && <OverflowMenuItem
+                              {(row.cells[2].value!=="PENDING EXTENSION"&&row.cells[2].value!=="EXPIRED") && <OverflowMenuItem
                               key={extend_action.key}
                                onClick={() =>
                                 {

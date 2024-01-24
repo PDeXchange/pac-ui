@@ -53,7 +53,7 @@ const HeaderNav = () => {
       render={({ isSideNavExpanded, onClickSideNavExpand }) => (
         <>
            {renderActionModals()}
-          <Header>
+          <Header aria-label="">
           {isAdmin&& <HeaderMenuButton
               aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
               isCollapsible
@@ -64,7 +64,7 @@ const HeaderNav = () => {
             <HeaderName as={Link} to="/" prefix="">
              Power Access Cloud
             </HeaderName>
-            {!isAdmin&&<HeaderNavigation>
+            {!isAdmin&&<HeaderNavigation aria-label="">
               <HeaderMenuItem as={Link} to="catalogs">Catalog</HeaderMenuItem>
               <HeaderMenuItem as={Link} to="/">FAQ</HeaderMenuItem>
               <HeaderMenuItem onClick={() => setActionProps(action)}>Feedback</HeaderMenuItem>

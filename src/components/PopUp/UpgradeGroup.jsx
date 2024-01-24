@@ -67,7 +67,7 @@ const UpgradeGroup = ({pagename, currentGroupId, allgroupdata, setActionProps, r
       onRequestSubmit={() => {
         setPrimaryButtonDisabled(true);
         setPrimaryButtonText("Submitting...")
-        console.log(g)
+        
         onSubmit();
       }}
       open={true}

@@ -25,7 +25,7 @@ const DeleteService = ({pagename, selectRows, setActionProps, response }) => {
         title = "Service deleted successfully.";
       }
     } catch (error) {
-      console.log(error);
+      
     }
     response(title, message, errored)
     setActionProps("");

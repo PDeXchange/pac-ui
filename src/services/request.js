@@ -37,7 +37,7 @@ export const acceptTnC = () => {
     const url1 = "/pac-go-server/tnc";
     return _axios.post(url1)
         .then((response) => {
-          console.log(response.data)
+          
         })
         .catch((error) => {
           console.log(error)

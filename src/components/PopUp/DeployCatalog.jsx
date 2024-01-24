@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { deployCatalog } from "../../services/request";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "@carbon/react";
+import { Modal,InlineNotification } from "@carbon/react";
 const DeployCatalog = ({ selectRows, setActionProps, response }) => {
   const [catalogName, setCatalogName] = useState("");
   const [primaryButtonDisabled, setPrimaryButtonDisabled] = useState(false);
   const [primaryButtonText, setPrimaryButtonText] = useState("Submit");
+  const [emptyServiceName, setEmptyServiceName] = useState(true)
   let name = selectRows.name;
   let navigate = useNavigate();
   const onSubmit = async () => {
@@ -42,17 +43,38 @@ const DeployCatalog = ({ selectRows, setActionProps, response }) => {
     }
     
   };
+  const inlineNotificationComponent = (notificationTitile,notificationSubTitile) => {
+    return (
+      <React.Fragment>
+        <InlineNotification
+        aria-label="closes notification"
+        kind="error"
+        onClose={function noRefCheck(){}}
+        onCloseButtonClick={function noRefCheck(){}}
+        statusIconDescription="notification"
+        subtitle={notificationSubTitile}
+        title={notificationTitile}
+      />
+      </React.Fragment>
+    );
+  };
   return (
     <Modal
       modalHeading="Deploy Catalog"
-      danger={true}
+      
       onRequestClose={() => {
         setActionProps("");
       }}
       onRequestSubmit={() => {
-        setPrimaryButtonDisabled(true);
+        if(catalogName===""){
+          setEmptyServiceName(false)
+        }else{
+          setEmptyServiceName(true);
+          setPrimaryButtonDisabled(true);
         setPrimaryButtonText("Submitting...")
         onSubmit();
+        }
+        
       }}
       open={true}
       primaryButtonText={primaryButtonText}
@@ -62,7 +84,7 @@ const DeployCatalog = ({ selectRows, setActionProps, response }) => {
       <div>
         <div className="mb-3">
           <label htmlFor="Name" className="form-label">
-            Name
+            Name <span className="text-danger">*</span>
           </label>
           <input
             type={"text"}
@@ -70,8 +92,18 @@ const DeployCatalog = ({ selectRows, setActionProps, response }) => {
             placeholder="Enter the display name for the service"
             name="name"
             value={catalogName}
-            onChange={(e) => setCatalogName(e.target.value)}
+            onChange={(e) => {
+              if(e.target.value===""){
+                setEmptyServiceName(false)
+              }else{
+                setEmptyServiceName(true)
+
+              }
+              setCatalogName(e.target.value)
+            }}
           />
+          {!emptyServiceName&&inlineNotificationComponent('Service name',': field can not be empty')}
+
         </div>
         <div className="mb-3">
           <label htmlFor="Name" className="form-label">

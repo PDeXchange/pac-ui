@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const ServiceDetails = ({pagename, selectRows, setActionProps }) => {
     let navigate = useNavigate();
 
-   console.log(selectRows);
+   
   return (
     <Modal
       modalHeading="Service details"

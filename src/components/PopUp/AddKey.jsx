@@ -61,7 +61,7 @@ const AddKey = ({ pagename,setActionProps, response }) => {
       }
     } catch (error) {
       // handle any errors that occurred during the dispatch
-      console.log(error);
+      
     }
     response(title, message, errored)
     setActionProps("");
@@ -98,7 +98,7 @@ const AddKey = ({ pagename,setActionProps, response }) => {
       <div>
         <div className="mb-3">
           <label htmlFor="Name" className="form-label">
-            Name
+            Name<span className="text-danger">*</span>
           </label>
           <input
             type={"text"}
@@ -154,9 +154,9 @@ const AddKey = ({ pagename,setActionProps, response }) => {
               }else{
               setKeyContentValidate(false)
               const re=/^ssh-[a-z]+\s+[A-Za-z0-9+/=]+\s*[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              console.log(e.target.value);
+              
               const isValid = re.test(e.target.value);
-              console.log(!isValid)
+              
               setKeyContentValidate(!isValid);
               }
             }}

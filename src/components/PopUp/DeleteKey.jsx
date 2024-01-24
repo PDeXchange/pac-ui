@@ -23,7 +23,7 @@ const DeleteKey = ({ selectRows, pagename, setActionProps, response }) => {
         title = "Key deleted successfully";
       }
     } catch (error) {
-      console.log(error);
+      
     }
     response(title, message, errored)
     setActionProps("");

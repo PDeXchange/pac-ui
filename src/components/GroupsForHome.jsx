@@ -120,14 +120,14 @@ const GroupsForHome = () => {
     setPendingGroups(newResult)
     const result=data.payload.filter((d)=>d.membership);
 
-    //console.log(data.payload);
+    
     newResult.forEach((p)=>{
      var pendingItem=data.payload.filter((d)=>d.name.toLowerCase()===p.group.group.toLowerCase())
      
      result.push(pendingItem[0])
     })
 
-    //console.log(result)
+    
     setRows(result);
     setLoading(false);
   };

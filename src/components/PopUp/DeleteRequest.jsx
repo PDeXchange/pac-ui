@@ -24,7 +24,7 @@ const DeleteRequest = ({ selectRows, setActionProps, response }) => {
         title = "Deleted request successfully.";
       }
     } catch (error) {
-      console.log(error);
+      
     }
     response(title, message, errored)
     setActionProps("");
