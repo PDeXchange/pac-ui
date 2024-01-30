@@ -13,7 +13,6 @@ import { MobileAdd, Information, CheckmarkFilled, WarningFilled} from "@carbon/i
 import { getAllCatalogs } from "../services/request";
 import DeployCatalog from "./PopUp/DeployCatalog";
 
-import UserService from "../services/UserService";
 import QuotaWarning from "./PopUp/QuotaWarning";
 import Notify from "./utils/Notify";
 import "../styles/registration.scss";
@@ -107,7 +106,7 @@ const Catalogs = () => {
                       <h1 className="landing-page__sub_heading banner-header">
                       Catalog
                       </h1>
-                      <p className="banner-text">Explore the catalog of Power Access Cloud services and select the one that best suits your project needs. Note: You must <a style={{color:"blue", textDecoration:"underline", cursor:"pointer"}} onClick={() => setActionProps(action)}>add a SSH key</a> before deploying a service.</p>
+                      <p className="banner-text">Explore the catalog of Power Access Cloud services and select the one that best suits your project needs. Note: You must <a style={{color:"blue", textDecoration:"underline", cursor:"pointer"}} onClick={() => setActionProps(action)} href="#/">add a SSH key</a> before deploying a service.</p>
                   </div>
                   </Grid>
     

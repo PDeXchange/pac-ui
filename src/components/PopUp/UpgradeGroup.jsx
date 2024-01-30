@@ -47,7 +47,7 @@ const UpgradeGroup = ({pagename, currentGroupId, allgroupdata, setActionProps, r
         message = payload.response.data.error;
         errored = true;
       } else {
-        title = "The request for the group has been successfully submitted, track the progress under request section."
+        title = "The request for the group has been successfully submitted, track the progress in My group section."
       }
     } catch (error) {
       // handle any errors that occurred during the dispatch

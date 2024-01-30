@@ -302,7 +302,7 @@ const GroupsForHome = () => {
                    {renderNoDataEmptyState()}
                   </div>
                   ) }
-                  <Button kind="tertiary" disabled={rows.length===0} style={{float:"right",marginTop:"1rem"}} onClick={() => {if(pendinggroups.length>0){ alert('You already have a pending request, you can not creat a new request at the moment')} else{setActionProps(new_request)}}}>
+                  <Button kind="tertiary" disabled={rows.length===0} style={{float:"right",marginTop:"1rem"}} onClick={() => {if(pendinggroups.length>0){ alert('You already have a pending request, you cannot create a new request at the moment')} else{setActionProps(new_request)}}}>
                         Upgrade
                       </Button>
                   

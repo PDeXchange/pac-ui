@@ -1,12 +1,13 @@
 // import axios from "axios";
 import React, { useState } from "react";
 import { deleteGroup } from "../../services/request";
-import { Modal } from "@carbon/react";
+import { Modal,InlineNotification } from "@carbon/react";
 import { useNavigate } from "react-router-dom";
 
 const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
   const [primaryButtonDisabled, setPrimaryButtonDisabled] = useState(false);
   const [primaryButtonText, setPrimaryButtonText] = useState("Submit");
+  const [reasonCheck, setReasonCheck] = useState(false)
   const id = selectRows[0]?.id;
   let navigate = useNavigate();
 
@@ -14,21 +15,30 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
     let title = "";
     let message = "";
     let errored = false;
-    try {
-      const { type, payload } = await deleteGroup(g); // wait for the dispatch to complete
-      if (type === "API_ERROR") {
-        title = "The request to exit the group has failed.";
-        message = payload.response.data.error;
-        errored = true;
-      } else {
-        title = "Your request to leave the group was successfully submitted.";
-      }
-    } catch (error) {
-      console.log(error);
+    console.log()
+    if(g.justification===""){
+      setReasonCheck(true)
+      return;
     }
-    response(title, message, errored)
-    setActionProps("");
-    navigate(pagename);
+    
+      try {
+        const { type, payload } = await deleteGroup(g); // wait for the dispatch to complete
+        if (type === "API_ERROR") {
+          title = "The request to exit the group has failed.";
+          message = payload.response.data.error;
+          errored = true;
+        } else {
+          title = "Your request to leave the group was successfully submitted.";
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      response(title, message, errored)
+      setActionProps("");
+      setPrimaryButtonDisabled(true);
+      setPrimaryButtonText("Exiting...")
+      navigate(pagename);
+    
   };
 
   const [g, setGroup] = useState({
@@ -39,7 +49,21 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
   const onInputChange = (e) => {
     setGroup({ ...g, [e.target.name]: e.target.value });
   };
-
+  const inlineNotificationComponent = (notificationTitile,notificationSubTitile) => {
+    return (
+      <React.Fragment>
+        <InlineNotification
+        aria-label="closes notification"
+        kind="error"
+        onClose={function noRefCheck(){}}
+        onCloseButtonClick={function noRefCheck(){}}
+        statusIconDescription="notification"
+        subtitle={notificationSubTitile}
+        title={notificationTitile}
+      />
+      </React.Fragment>
+    );
+  };
   return (
     <Modal
       modalHeading="Leave Group"
@@ -47,10 +71,9 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
         setActionProps("");
       }}
       onRequestSubmit={() => {
-        setPrimaryButtonDisabled(true);
-        setPrimaryButtonText("Exiting...")
+        
         onSubmit();
-        setActionProps("");
+        
       }}
       open={true}
       primaryButtonText={primaryButtonText}
@@ -61,15 +84,33 @@ const ExitGroup = ({ selectRows, pagename, setActionProps, response }) => {
        
         <div className="mb-3">
           <label htmlFor="Justifcation" className="form-label">
-          Please share why you are leaving this group
+          Please share why you are leaving this group<span className="text-danger">*</span>
           </label>
           <textarea
+            placeholder="Enter your justifcation to exit from this group"
             type={"text"}
             className="form-control"
             name="justification"
             value={g?.justification}
-            onChange={(e) => onInputChange(e)}
+            onChange={(e) => {
+              if(e.target.value===''){
+                setReasonCheck(true)
+              }else{
+                setReasonCheck(false)
+              }
+              onInputChange(e)
+            }}
+            onBlur={(e)=>{
+              if(e.target.value===''){
+                setReasonCheck(true)
+              }else{
+                setReasonCheck(false)
+              }
+            }}
+            
+            required
           />
+          {reasonCheck && inlineNotificationComponent('Reason',': field can not be empty')}
         </div>
       </div>
     </Modal>

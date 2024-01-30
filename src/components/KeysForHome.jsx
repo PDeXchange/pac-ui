@@ -137,15 +137,7 @@ const KeysForHome = () => {
       </React.Fragment>
     );
   };
-// const renderNoDataEmptyState=()=>{
-//     return (<NoDataEmptyState
-      
-//       illustrationTheme= "light"
-//       size="sm"
-//       title="There are no groups to display"
-//       subtitle="You bronze request is pending, we will notify you once it will approved"
-//     />)
-//   };
+
 const renderNoDataEmptyState=()=>{
   return (<div>There are no keys to display. PAC requires a SSH public key to deploy services. Click Add key to proceed.</div>)
 }

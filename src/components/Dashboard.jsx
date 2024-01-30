@@ -40,13 +40,13 @@ const Dashboard = () => {
     const dataMember=data.payload.filter((i)=>i.membership===true)
     setApprovedGroups(dataMember)
 
-    if(dataMember.length>0){
+    // if(dataMember.length>0){
       
-      setActionProps("")
-    }else{
+    //   setActionProps("")
+    // }else{
       
-      setActionProps(userGuideAction)
-    }
+    //   setActionProps(userGuideAction)
+    // }
     
     setAllGroupsdata(data.payload)
   }

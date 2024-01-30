@@ -20,19 +20,9 @@ const AddKey = ({ pagename,setActionProps, response }) => {
     let title = "";
     let message = "";
     let errored = false;
-    // if (g.name === "" || g.content === ""){
-    //   setKeyContentemptyCheck(true)
-    //   setKeyContentValidate(false)
-    //   return;
-    // }else{
-    //   setKeyContentemptyCheck(false);
-    //   if(!keyContentValidate){
-    //     setKeyContentValidate(true)
-    //   }else{
-    //     setKeyContentValidate(false)
-    //   }
-    // }
+    
     if(g.name===""){
+      
       setKeynameCheck(true);
       return;
     }else{
