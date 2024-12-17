@@ -18,11 +18,10 @@ const TnCRoute = ({ Component }) => {
         await acceptTnC(); 
         await newRequest({
           name: "bronze",
-          id: "474fb329-de64-4e2f-bab5-4fec06c489ed",
+          id: "2e4881b9-2234-4df8-abfd-8783d85e1a0c",
           justification: just
         });
         navigate("/dashboard");
-        
       }else{ 
         alert("You need to register before you can log in");
         navigate("/register");
