@@ -17,8 +17,8 @@
   right: 1px;
 }
 
-.logout-button {
-  background-color: #ff0000;
+.logout-button,
+.delete-button {
   border: none;
   color: white;
   padding: 15px 32px;
@@ -28,6 +28,10 @@
   margin: 4px 2px;
   padding-left: 10px;
   cursor: pointer;
+}
+
+.logout-button {
+  background-color: #ff0000;
 }
 
 .landing-page__r2 .cds--tabs--scrollable {

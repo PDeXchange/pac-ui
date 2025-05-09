@@ -340,6 +340,20 @@ export const allUsers = () => {
     }));
 };
 
+export const deleteUser = () => {
+  const url = `/pac-go-server/user`;
+  return _axios
+    .delete(url)
+    .then((response) => ({
+      type: "LIST_REQUESTS",
+      payload: response.data,
+    }))
+    .catch((error) => ({
+      type: "API_ERROR",
+      payload: error,
+    }));
+}
+
 export const getEvents = (page, per_page) => {
   const url = `/pac-go-server/events?page=${page}&per_page=${per_page}`;
   return _axios
