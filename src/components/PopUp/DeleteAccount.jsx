@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, Theme } from "@carbon/react";
 import { deleteUser } from "../../services/request";
-
+import UserService from "../../services/UserService";
 
 const DeleteAccount = ({ setActionProps }) => {
 	let navigate = useNavigate();
@@ -12,9 +12,10 @@ const DeleteAccount = ({ setActionProps }) => {
 	let title = "";
 	let message = "";
 	let errored = false;
+	const userName = UserService.getUsername()
 
 		try {
-				const { type, payload } = await deleteUser(); // wait for the dispatch to complete
+				const { type, payload } = await deleteUser(userName); // wait for the dispatch to complete
 				if (type === "API_ERROR") {
 				title = "Service deletion failed.";
 				message = payload.response.data.error;
