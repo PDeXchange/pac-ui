@@ -31,8 +31,8 @@ const QuotaWarning = () => {
         setQuotaMessage(
           "You are running out of quota, please make some space by deleting services or request to a higher quota group"
         );
-        setPrimaryButtonText("Delete Services");
-        setNagivateTo("/services");
+        setPrimaryButtonText("Go to Dashboard");
+        setNagivateTo("/");
       }
     };
     fetchData();
