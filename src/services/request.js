@@ -13,37 +13,40 @@ _axios.interceptors.request.use((config) => {
 });
 
 export const tncStatus = () => {
-const url = "/pac-go-server/tnc";
-  return _axios.get(url)
-        .then((response) => ({
-          acceptance: response.data.accepted
-        }))
-        .catch((error) => {
-          console.log(error)
-        });    
-}
+  const url = "/pac-go-server/tnc";
+  return _axios
+    .get(url)
+    .then((response) => ({
+      acceptance: response.data.accepted,
+    }))
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 export const getTnCText = () => {
-  const url = "https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/TnC.txt";
-  return axios.get(url).then((response) => ({
-    text: response.data
-  }))
-  .catch((error) => {
-    console.log(error)
-  });      
-}
+  const url =
+    "https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/TnC.txt";
+  return axios
+    .get(url)
+    .then((response) => ({
+      text: response.data,
+    }))
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 export const acceptTnC = () => {
-    const url1 = "/pac-go-server/tnc";
-    return _axios.post(url1)
-        .then((response) => {
-          
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-    }
-    
+  const url1 = "/pac-go-server/tnc";
+  return _axios
+    .post(url1)
+    .then((response) => {})
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const allGroups = () => {
   const url = "/pac-go-server/groups";
 
@@ -352,7 +355,7 @@ export const deleteUser = (name) => {
       type: "API_ERROR",
       payload: error,
     }));
-}
+};
 
 export const getEvents = (page, per_page) => {
   const url = `/pac-go-server/events?page=${page}&per_page=${per_page}`;
@@ -380,4 +383,23 @@ export const getQuota = () => {
       type: "API_ERROR",
       payload: error,
     }));
+};
+
+export const createFeedback = async (payload) => {
+  const url = "/pac-go-server/feedbacks";
+  let result = {};
+  try {
+    const response = await _axios.post(url, payload);
+    result = {
+      type: "CREATE_FEEDBACK",
+      payload: response.data,
+    };
+  } catch (error) {
+    result = {
+      type: "API_ERROR",
+      payload: error,
+    };
+  }
+
+  return result;
 };
