@@ -35,7 +35,7 @@ const Feedback = ({ setActionProps, response }) => {
         title = "Submitting Feedback failed. Please try again!";
         errored = true;
       } else {
-        title = "Submitted Feedback successfully!";
+        title = "Your feedback has been submitted successfully. Thanks!";
       }
     } catch (error) {
       console.log(error);
