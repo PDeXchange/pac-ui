@@ -17,8 +17,8 @@ const TnCRoute = ({ Component }) => {
       if(just!=='' && tnc_acc){
         await acceptTnC(); 
         await newRequest({
-          name: "extra-small",
-          id: "2792d119-3f43-4cbb-a903-39ccc6b2517d",
+          name: "bronze",
+          id: "ab2d28ba-a8af-4202-b962-c36623e8fb19",
           justification: just
         });
         navigate("/dashboard");
