@@ -403,3 +403,21 @@ export const createFeedback = async (payload) => {
 
   return result;
 };
+
+export const getFeedbacks = async (page, per_page) => {
+  const url = `/pac-go-server/feedbacks?page=${page}&per_page=${per_page}`;
+  let result = {};
+  try {
+    const response = await _axios.get(url);
+    result = {
+      type: "LIST_FEEDBACKS",
+      payload: response.data,
+    };
+  } catch (error) {
+    result = {
+      type: "API_ERROR",
+      payload: error,
+    };
+  }
+  return result;
+};

@@ -19,6 +19,7 @@ import Users from "./Users";
 import Events from "./Events";
 import Keys from "./Keys";
 import { Theme } from "@carbon/react";
+import Feedbacks from "./Feedbacks";
 
 const App = () => {
   const auth = UserService.isLoggedIn();
@@ -81,6 +82,12 @@ const App = () => {
         {isAdmin && (
           <Route path="/events" element={<TnCRoute Component={Events} />} />
         )}
+        {isAdmin && (
+          <Route
+            path="/feedbacks"
+            element={<TnCRoute Component={Feedbacks} />}
+          />
+        )}
       </Routes>
     );
   };
@@ -97,6 +104,7 @@ const App = () => {
       "/services-admin",
       "/events",
       "/keys",
+      "/feedbacks",
     ].includes(window.location.pathname)
   ) {
     window.location.href = "/login";
