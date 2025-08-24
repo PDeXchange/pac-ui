@@ -12,6 +12,7 @@ import {
   Checkbox,
   Modal
 } from "@carbon/react";
+import pacBackgroundImg from "../assets/images/PAC-background.jpg"
 
 const Register = () => {
     const navigate = useNavigate();
@@ -44,10 +45,9 @@ const Register = () => {
             <h1 className="landing-page__subheading banner-heading">
             Registration
             </h1>
-            
           </Column>
           <Column lg={6} md={4} sm={4} >
-            <img src={`https://isv-graphics.s3.us-south.cloud-object-storage.appdomain.cloud/PAC-background-new.jpg`} alt="ls" className="ls" />
+            <img src={pacBackgroundImg} alt="ls" className="ls" />
           </Column>
        
         <Column lg={16} md={8} sm={4} className="tnc" >
