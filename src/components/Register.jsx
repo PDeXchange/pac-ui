@@ -55,7 +55,7 @@ const Register = () => {
 <p>Briefly describe how you plan to use this service. Provide as much detail as possible and include a link to your project if you have one.
 </p>
 <p>
-<strong>Note</strong>: By default, all new users are assigned to the Extra-small group, which includes .5 vCPU, 8 GB of memory. <strong>IBM&reg; Power&reg; Access Cloud Groups</strong> control resource allocation by assigning the maximum CPU and memory available to your VM. With a valid use case, you can request additional resources from the IBM&reg; Power&reg; Access Cloud dashboard after your initial registration is approved.
+<strong>Note</strong>: By default, all new users are assigned to the Bronze group, which includes .5 vCPU, 8 GB of memory. <strong>IBM&reg; Power&reg; Access Cloud Groups</strong> control resource allocation by assigning the maximum CPU and memory available to your VM. With a valid use case, you can request additional resources from the IBM&reg; Power&reg; Access Cloud dashboard after your initial registration is approved.
 
 </p>
        
